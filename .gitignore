@@ -1,0 +1,36 @@
+# ── Python ────────────────────────────────────────────────
+__pycache__/
+*.py[cod]
+*.pyo
+*.egg-info/
+dist/
+build/
+*.egg
+
+# ── Virtual Environment ──────────────────────────────────
+backend/venv/
+venv/
+.env
+
+# ── ML Models & Large Data (too large for Git) ───────────
+backend/bert_category_model/
+backend/bert_compliance_model/
+backend/training_data_evidence.csv
+backend/*.pkl
+
+# ── Node.js ──────────────────────────────────────────────
+frontend/node_modules/
+frontend/dist/
+
+# ── Uploads (user-generated) ────────────────────────────
+backend/uploads/
+
+# ── OS Files ─────────────────────────────────────────────
+.DS_Store
+Thumbs.db
+
+# ── IDE ──────────────────────────────────────────────────
+.vscode/
+.idea/
+*.swp
+*.swo
