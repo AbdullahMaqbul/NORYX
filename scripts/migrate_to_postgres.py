@@ -3,6 +3,7 @@ Migrate data from SQLite (sql_app.db) → PostgreSQL (grc_db).
 Run once, then delete this script.
 """
 import sqlite3
+import os
 from sqlalchemy import create_engine, text
 from sqlalchemy.orm import sessionmaker
 
@@ -12,7 +13,7 @@ sqlite_conn.row_factory = sqlite3.Row
 cur = sqlite_conn.cursor()
 
 # ── Destination: PostgreSQL ─────────────────────────────────────────────────────
-PG_URL = "postgresql://fuadxxx@localhost/grc_db"
+PG_URL = os.getenv("NORYX_POSTGRES_URL", "postgresql://localhost/grc_db")
 pg_engine = create_engine(PG_URL)
 
 # Create all tables first via our models

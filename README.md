@@ -116,7 +116,7 @@ Open two terminal tabs.
 ### 1. Backend
 
 ```bash
-cd "/Users/fuadxxx/Documents/NORYX-_-/Noryx/backend"
+cd backend
 
 python3 -m venv .venv
 source .venv/bin/activate
@@ -136,9 +136,10 @@ http://127.0.0.1:8000
 ### 2. Frontend
 
 ```bash
-cd "/Users/fuadxxx/Documents/NORYX-_-/Noryx/frontend"
+cd frontend
 
 npm install
+cp .env.example .env.local
 npm run dev -- --host 127.0.0.1
 ```
 
@@ -148,12 +149,14 @@ Frontend URL:
 http://127.0.0.1:5173/
 ```
 
+Fill `frontend/.env.local` with your Firebase project values before using the Firebase sign-in/sign-up flow.
+
 ## AI Model Setup
 
 The repository ignores large local model artifacts and virtual environments. If you need full AI evidence validation and threat prediction, install the extra model dependencies:
 
 ```bash
-cd "/Users/fuadxxx/Documents/NORYX-_-/Noryx/backend"
+cd backend
 source .venv/bin/activate
 
 pip install opencv-python easyocr joblib scikit-learn numpy torch torchvision transformers
@@ -211,7 +214,7 @@ If the response includes `"source":"ollama"`, the local Gemma model is connected
 ### Frontend Build Check
 
 ```bash
-cd "/Users/fuadxxx/Documents/NORYX-_-/Noryx/frontend"
+cd frontend
 npm run build
 ```
 
@@ -228,7 +231,7 @@ curl http://127.0.0.1:8000/dashboard/stats
 ### Evidence Model Test
 
 ```bash
-cd "/Users/fuadxxx/Documents/NORYX-_-/Noryx/backend"
+cd backend
 source .venv/bin/activate
 
 python - <<'PY'
@@ -250,7 +253,7 @@ PY
 Start the backend first, then run:
 
 ```bash
-cd "/Users/fuadxxx/Documents/NORYX-_-/Noryx/backend"
+cd backend
 source .venv/bin/activate
 
 python run_evidence_tests.py
@@ -259,7 +262,7 @@ python run_evidence_tests.py
 ### Threat Prediction Test
 
 ```bash
-cd "/Users/fuadxxx/Documents/NORYX-_-/Noryx/backend"
+cd backend
 source .venv/bin/activate
 
 python - <<'PY'
