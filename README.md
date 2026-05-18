@@ -39,11 +39,11 @@ The policy assessment module allows teams to upload policy documents, select fra
 
 ![NORYX policy assessment](docs/screenshots/noryx-04-policy-assessment.png)
 
-### 5. Threat Intelligence
+### 5. Compliance Heatmap
 
-The threat intelligence panel links failed evidence and weak controls to predicted cybersecurity threats, helping teams understand which risks may emerge from control gaps.
+The compliance heatmap visualizes control coverage by department and category, making weak areas and critical hotspots easy to identify.
 
-![NORYX threat intelligence](docs/screenshots/noryx-05-threat-intel.png)
+![NORYX compliance heatmap](docs/screenshots/noryx-05-compliance-heatmap.png)
 
 ### 6. Evidence Approval Workflow
 
