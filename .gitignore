@@ -29,7 +29,9 @@ frontend/node_modules/
 frontend/dist/
 
 # Uploads and generated policy artifacts
-backend/uploads/
+backend/uploads/*
+!backend/uploads/test_images/
+!backend/uploads/test_images/*.png
 data/company_policies/
 
 # Local assistant/tooling state
