@@ -13,15 +13,55 @@ The platform combines a React dashboard, a FastAPI backend, SQLite persistence, 
 | Abbduall Al-Qhtani | Team Member |
 | Prof. Reda Salama | Supervisor |
 
-## Platform Screenshots
+## Feature Gallery
 
-### Admin Dashboard
+### 1. Executive Compliance Dashboard
 
-![NORYX platform dashboard](docs/screenshots/noryx-platform-dashboard.png)
+The admin dashboard gives leadership a real-time view of overall compliance, evidence status, failed controls, department heatmaps, and department-level progress.
 
-### Control Testing
+![NORYX executive compliance dashboard](docs/screenshots/noryx-01-dashboard.png)
 
-![NORYX control testing screen](docs/screenshots/noryx-control-testing.png)
+### 2. Controls Management
+
+The controls workspace centralizes cybersecurity and compliance controls, including criteria, descriptions, categories, and department assignment.
+
+![NORYX controls management](docs/screenshots/noryx-02-controls.png)
+
+### 3. Framework Library
+
+The framework library stores and browses control references from major cybersecurity and privacy frameworks such as NCA ECC, ISO 27001, ISO 27002, NIST CSF, SAMA CSF, PDPL, and SCF.
+
+![NORYX framework library](docs/screenshots/noryx-03-framework-library.png)
+
+### 4. Policy Assessment
+
+The policy assessment module allows teams to upload policy documents, select frameworks, run standard or GRCXPERT-assisted assessment, and identify compliant, partially compliant, and non-compliant requirements.
+
+![NORYX policy assessment](docs/screenshots/noryx-04-policy-assessment.png)
+
+### 5. Threat Intelligence
+
+The threat intelligence panel links failed evidence and weak controls to predicted cybersecurity threats, helping teams understand which risks may emerge from control gaps.
+
+![NORYX threat intelligence](docs/screenshots/noryx-05-threat-intel.png)
+
+### 6. Evidence Approval Workflow
+
+The approval workflow helps managers review submitted evidence, inspect AI validation output, approve valid submissions, or send weak evidence back for correction.
+
+![NORYX evidence approval workflow](docs/screenshots/noryx-06-approvals.png)
+
+### 7. Control Testing Scheduler
+
+The control testing scheduler tracks control test frequency, owners, last-tested dates, next due dates, overdue items, and testing status.
+
+![NORYX control testing scheduler](docs/screenshots/noryx-07-control-testing.png)
+
+### 8. GRCXPERT Assistance Chatbot
+
+GRCXPERT Assistance provides bilingual GRC guidance through a local Ollama-powered assistant, with guardrails for compliance education, cybersecurity concepts, frameworks, policies, evidence examples, remediation, and audit preparation.
+
+![NORYX GRCXPERT assistance chatbot](docs/screenshots/noryx-08-grcxpert-chatbot.png)
 
 ## Key Features
 
