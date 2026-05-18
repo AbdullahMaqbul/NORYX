@@ -78,8 +78,28 @@ class Evidence(BaseModel):
     extracted_text: Optional[str] = None
     ai_confidence: Optional[str] = None
 
+    ai_status: Optional[str] = None
+    review_state: Optional[str] = "auto"
+    manager_decision: Optional[str] = None
+    manager_comment: Optional[str] = None
+    manager_justification: Optional[str] = None
+    reviewed_by: Optional[str] = None
+    reviewed_at: Optional[datetime.datetime] = None
+    resubmitted_from: Optional[int] = None
+
     class Config:
         from_attributes = True
+
+
+class ManagerApprove(BaseModel):
+    justification: str
+    reviewer: Optional[str] = "Manager"
+    final_status: Optional[str] = "pass"   # pass | fail
+
+
+class ManagerSendBack(BaseModel):
+    comment: str
+    reviewer: Optional[str] = "Manager"
 
 
 # ── Dashboard ─────────────────────────────────────────────────────────────────
@@ -138,8 +158,8 @@ class TaskUpdate(BaseModel):
 class Task(BaseModel):
     id: int
     title: str
-    department_id: int
-    control_id: int
+    department_id: Optional[int] = None
+    control_id: Optional[int] = None
     due_date: datetime.datetime
     status: str
 

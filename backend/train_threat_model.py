@@ -54,8 +54,6 @@ SCORING_WEIGHTS = {
 }
 
 
-# ── Embedding utilities ────────────────────────────────────────────────────────
-
 def mean_pool(token_embeds: torch.Tensor, attention_mask: torch.Tensor) -> np.ndarray:
     """Mean-pool token embeddings weighted by the attention mask."""
     mask_expanded = attention_mask.unsqueeze(-1).expand(token_embeds.size()).float()
@@ -87,14 +85,7 @@ def encode_texts(texts: list[str], tokenizer, model, batch_size: int = 16) -> np
     return np.vstack(all_embeddings)
 
 
-# ── Threat document builder ────────────────────────────────────────────────────
-
 def build_threat_document(t: dict) -> str:
-    """
-    Construct a rich, weight-boosted text document for each threat.
-    Critical fields (name, keywords, tactic) are repeated to give
-    the TF-IDF-style "boost" effect inside the BERT embedding.
-    """
     parts = [
         t["name"],                              # x1
         t["name"],                              # x2 — boost name
@@ -110,8 +101,6 @@ def build_threat_document(t: dict) -> str:
     return " ".join(filter(None, parts))
 
 
-# ── NCA controls loader ────────────────────────────────────────────────────────
-
 def load_nca_controls() -> list[dict]:
     """Load the 108 NCA ECC controls from the scripts dataset."""
     if not os.path.exists(_NCA_PATH):
@@ -123,30 +112,24 @@ def load_nca_controls() -> list[dict]:
     return data
 
 
-# ── Main training ──────────────────────────────────────────────────────────────
-
 def train():
     print("=" * 60)
     print("Threat Model v2 — BERT Semantic Embedding Training")
     print("=" * 60)
 
-    # 1. Load backbone
     print(f"\n[1/5] Loading DistilBERT backbone from {_BERT_PATH} …")
     tokenizer = AutoTokenizer.from_pretrained(_BERT_PATH)
     model     = AutoModel.from_pretrained(_BERT_PATH, ignore_mismatched_sizes=True)
     model.eval()
     print(f"      Hidden dim: {model.config.hidden_size}  |  Model: {model.config.model_type}")
 
-    # 2. Build threat documents
     print(f"\n[2/5] Building threat documents for {len(THREAT_DB)} threats …")
     threat_docs = [build_threat_document(t) for t in THREAT_DB]
 
-    # 3. Encode threats
     print(f"\n[3/5] Encoding threats with BERT (batch_size=16) …")
     threat_embeddings = encode_texts(threat_docs, tokenizer, model, batch_size=16)
     print(f"      Embedding matrix: {threat_embeddings.shape}")
 
-    # 4. NCA control enrichment (validation only — used for offline analysis)
     nca_controls = load_nca_controls()
     nca_embeddings = None
     if nca_controls:
@@ -157,14 +140,12 @@ def train():
         ]
         nca_embeddings = encode_texts(nca_docs, tokenizer, model, batch_size=16)
 
-        # Compute NCA→threat similarity matrix for analysis
         sim_matrix = sk_cosine(nca_embeddings, threat_embeddings)
         top_counts  = (sim_matrix.max(axis=1) > 0.3).sum()
         print(f"      {top_counts}/{len(nca_controls)} NCA controls have at least one high-similarity threat (>0.3).")
     else:
         print(f"\n[4/5] Skipping NCA enrichment (file not found).")
 
-    # 5. Save
     print(f"\n[5/5] Saving model → {_OUT_PATH} …")
     payload = {
         "version":          "2.0-bert",

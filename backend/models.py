@@ -1,4 +1,4 @@
-from sqlalchemy import Column, Integer, String, Text, ForeignKey, DateTime
+from sqlalchemy import Column, Integer, String, Text, ForeignKey, DateTime, Boolean
 from sqlalchemy.orm import relationship
 from database import Base
 import datetime
@@ -71,6 +71,16 @@ class Evidence(Base):
     extracted_text= Column(Text)
     ai_confidence = Column(String)
 
+    # Multi-tier approval workflow
+    ai_status            = Column(String, nullable=True)   # snapshot of AI verdict before manager override
+    review_state         = Column(String, default="auto")  # auto | pending_manager | approved | sent_back
+    manager_decision     = Column(String, nullable=True)   # approved | sent_back
+    manager_comment      = Column(Text,   nullable=True)   # explanation for sent_back
+    manager_justification= Column(Text,   nullable=True)   # justification for override approval
+    reviewed_by          = Column(String, nullable=True)
+    reviewed_at          = Column(DateTime, nullable=True)
+    resubmitted_from     = Column(Integer, ForeignKey("evidence.id"), nullable=True)
+
     control    = relationship("Control",    back_populates="evidence_submissions")
     department = relationship("Department", back_populates="evidences")
     risks      = relationship("Risk",       back_populates="evidence")
@@ -105,3 +115,72 @@ class Risk(Base):
 
     control  = relationship("Control",  back_populates="risks")
     evidence = relationship("Evidence", back_populates="risks")
+
+
+class TestingSchedule(Base):
+    __tablename__ = "testing_schedules"
+
+    id             = Column(Integer, primary_key=True, index=True)
+    control_id     = Column(Integer, ForeignKey("controls.id"))
+    frequency      = Column(String, default="quarterly")  # monthly | quarterly | biannually | annually
+    last_tested_at = Column(DateTime, nullable=True)
+    next_due_at    = Column(DateTime, nullable=True)
+    owner          = Column(String, nullable=True)
+    notes          = Column(Text, nullable=True)
+    created_at     = Column(DateTime, default=datetime.datetime.utcnow)
+
+    control = relationship("Control", backref="testing_schedule")
+
+
+class ControlException(Base):
+    __tablename__ = "control_exceptions"
+
+    id                   = Column(Integer, primary_key=True, index=True)
+    title                = Column(String)
+    control_id           = Column(Integer, ForeignKey("controls.id"), nullable=True)
+    reason               = Column(Text)
+    compensating_control = Column(Text, nullable=True)
+    risk_owner           = Column(String)
+    approver             = Column(String, nullable=True)
+    status               = Column(String, default="Pending")  # Pending | Approved | Rejected | Expired
+    expiry_date          = Column(DateTime, nullable=True)
+    created_at           = Column(DateTime, default=datetime.datetime.utcnow)
+
+    control = relationship("Control", backref="exceptions")
+
+
+class AuditFinding(Base):
+    __tablename__ = "audit_findings"
+
+    id                = Column(Integer, primary_key=True, index=True)
+    title             = Column(String)
+    description       = Column(Text)
+    severity          = Column(String, default="Major")     # Critical | Major | Minor | Observation
+    source            = Column(String, default="Internal")  # Internal | External | Regulatory
+    framework_ref     = Column(String, nullable=True)
+    owner             = Column(String, nullable=True)
+    department_id     = Column(Integer, ForeignKey("departments.id"), nullable=True)
+    status            = Column(String, default="Open")      # Open | In Progress | Closed
+    due_date          = Column(DateTime, nullable=True)
+    remediation_notes = Column(Text, nullable=True)
+    created_at        = Column(DateTime, default=datetime.datetime.utcnow)
+
+    department = relationship("Department", backref="audit_findings")
+
+
+class Vendor(Base):
+    __tablename__ = "vendors"
+
+    id                   = Column(Integer, primary_key=True, index=True)
+    name                 = Column(String)
+    service_type         = Column(String)
+    criticality          = Column(String, default="Medium")  # High | Medium | Low
+    handles_pii          = Column(Boolean, default=False)
+    risk_rating          = Column(String, default="Medium")  # High | Medium | Low
+    last_assessment_date = Column(DateTime, nullable=True)
+    next_review_date     = Column(DateTime, nullable=True)
+    contact_name         = Column(String, nullable=True)
+    contact_email        = Column(String, nullable=True)
+    status               = Column(String, default="Active")  # Active | Under Review | Inactive
+    notes                = Column(Text, nullable=True)
+    created_at           = Column(DateTime, default=datetime.datetime.utcnow)

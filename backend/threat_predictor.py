@@ -1,23 +1,3 @@
-"""
-Threat Predictor — v2 (BERT + Multi-Factor Scoring)
-====================================================
-Loads the BERT-embedded threat model and provides predict_threats().
-
-Scoring formula (4 factors):
-    final = (semantic_sim × 0.50)
-          + (category_bonus  × 0.20)
-          + (cvss_norm        × 0.20)
-          + (prevalence       × 0.10)
-
-  semantic_sim   BERT cosine similarity between control and threat text
-  category_bonus 1.0 if control category is in threat.categories, else 0.0
-  cvss_norm      threat.severity_score / 10
-  prevalence     threat.prevalence (real-world frequency, 0–1)
-
-Returns a list of threat dicts sorted by final_score descending (most dangerous first).
-Falls back to v1 TF-IDF model if the BERT model is not found.
-"""
-
 import os
 import pickle
 import numpy as np
@@ -33,7 +13,6 @@ _BERT_CACHE  = None   # (tokenizer, bert_model) tuple
 
 
 def _load_bert(model_path: str):
-    """Lazy-load the DistilBERT backbone (cached after first call)."""
     global _BERT_CACHE
     if _BERT_CACHE is not None:
         return _BERT_CACHE
@@ -55,7 +34,6 @@ def _mean_pool(token_embeds: torch.Tensor, attention_mask: torch.Tensor) -> np.n
 
 
 def _encode_query(text: str, tokenizer, model) -> np.ndarray:
-    """Encode a single query string to a 768-dim L2-normalised embedding."""
     encoded = tokenizer(
         [text],
         padding=True,
@@ -69,7 +47,6 @@ def _encode_query(text: str, tokenizer, model) -> np.ndarray:
 
 
 def _load_model():
-    """Load the best available model (v2 BERT preferred, v1 TF-IDF fallback)."""
     global _MODEL_CACHE
     if _MODEL_CACHE is not None:
         return _MODEL_CACHE
@@ -87,8 +64,6 @@ def _load_model():
           f"dim={_MODEL_CACHE['threat_embeddings'].shape[1]})")
     return _MODEL_CACHE
 
-
-# ── Public API ────────────────────────────────────────────────────────────────
 
 def predict_threats(
     control_name:        str,
@@ -112,16 +87,20 @@ def predict_threats(
     weights  = payload["scoring_weights"]
     version  = payload.get("version", "1")
 
-    # ── Build query text ──────────────────────────────────────────────────────
     query = " ".join(filter(None, [
         control_name,
         control_category,
         control_description,
     ]))
 
-    # ── Semantic similarity ───────────────────────────────────────────────────
     if "bert" in str(version):
-        tokenizer, bert_model = _load_bert(payload["model_path"])
+        # The pickled model_path may be an absolute path from a different
+        # checkout (e.g. AI-PoweredGRC). Prefer the local bert_category_model
+        # folder if it exists.
+        baked = payload.get("model_path", "")
+        local_bert = os.path.join(_DIR, "bert_category_model")
+        model_path = local_bert if os.path.isdir(local_bert) else baked
+        tokenizer, bert_model = _load_bert(model_path)
         q_embed = _encode_query(query, tokenizer, bert_model)     # (1, 768)
         sims    = sk_cosine(q_embed, t_embeds).flatten()          # (N,)
     else:
@@ -131,7 +110,6 @@ def predict_threats(
         q_vec      = vectorizer.transform([query])
         sims       = sk_cosine(q_vec, t_vecs).flatten()
 
-    # ── Score each threat ─────────────────────────────────────────────────────
     ctrl_cats = {c.strip().lower() for c in control_category.split()} if control_category else set()
 
     results = []

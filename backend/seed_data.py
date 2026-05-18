@@ -1,4 +1,4 @@
-"""
+﻿"""
 seed_data.py — Run once to:
   1. Create standard NCA departments
   2. Create 3 employees (Manager / Analyst / Engineer) per department
@@ -103,7 +103,7 @@ DEPARTMENTS = [
 
 # ── 2. Create departments & employees ─────────────────────────────────────────
 
-dept_map = {}   # name → Department object
+dept_map = {}   # name -> Department object
 
 for d in DEPARTMENTS:
     existing = db.query(models.Department).filter(models.Department.name == d["name"]).first()
@@ -134,7 +134,7 @@ db.commit()
 # ── 3. Auto-classify controls ──────────────────────────────────────────────────
 
 controls = db.query(models.Control).all()
-print(f"\n🔍 Auto-classifying {len(controls)} controls...")
+print(f"\nAuto-classifying {len(controls)} controls...")
 
 def score_dept(ctrl, dept_def):
     """Return a keyword match score for a control against a department."""
@@ -161,7 +161,7 @@ for ctrl in controls:
     # Also update category to match department name
     ctrl.category = best
     assigned += 1
-    print(f"  [{top} hits → {best[:22]:<22}] {ctrl.name[:50]}")
+    print(f"  [{top} hits -> {best[:22]:<22}] {ctrl.name[:50]}")
 
 db.commit()
 

@@ -1,4 +1,4 @@
-# ── Python ────────────────────────────────────────────────
+# Python
 __pycache__/
 *.py[cod]
 *.pyo
@@ -7,29 +7,39 @@ dist/
 build/
 *.egg
 
-# ── Virtual Environment ──────────────────────────────────
+# Virtual environments
+backend/.venv/
 backend/venv/
+backend/venv_win/
 venv/
 .env
 
-# ── ML Models & Large Data (too large for Git) ───────────
+# Local databases
+backend/grc_db.sqlite
+data/frameworks/framework_library.db
+
+# ML models and large training data
 backend/bert_category_model/
 backend/bert_compliance_model/
 backend/training_data_evidence.csv
 backend/*.pkl
 
-# ── Node.js ──────────────────────────────────────────────
+# Node.js
 frontend/node_modules/
 frontend/dist/
 
-# ── Uploads (user-generated) ────────────────────────────
+# Uploads and generated policy artifacts
 backend/uploads/
+data/company_policies/
 
-# ── OS Files ─────────────────────────────────────────────
+# Local assistant/tooling state
+.claude/
+
+# OS files
 .DS_Store
 Thumbs.db
 
-# ── IDE ──────────────────────────────────────────────────
+# IDE
 .vscode/
 .idea/
 *.swp

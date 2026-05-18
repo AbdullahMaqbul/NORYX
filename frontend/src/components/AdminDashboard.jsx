@@ -25,7 +25,7 @@ function RingGauge({ pct }) {
         />
       </svg>
       <div style={{ position: 'absolute', inset: 0, display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center' }}>
-        <span style={{ fontSize: '22px', fontWeight: 700, color, letterSpacing: '-0.02em' }}>{pct}%</span>
+        <span style={{ fontSize: '22px', fontWeight: 700, color, letterSpacing: 0 }}>{pct}%</span>
         <span style={{ fontSize: '10px', color: 'var(--text-tertiary)', fontWeight: 600, textTransform: 'uppercase', letterSpacing: '0.06em' }}>Compliance</span>
       </div>
     </div>
@@ -47,13 +47,17 @@ export default function AdminDashboard({ departments }) {
     </div>
   );
 
-  const pct   = stats.total > 0 ? Math.round((stats.passed / stats.total) * 100) : 0;
+  const total  = stats.total_evidence || 0;
+  const passed = stats.total_pass     || 0;
+  const failed = stats.total_fail     || 0;
+  const review = stats.total_review   || 0;
+  const pct    = stats.overall_compliance ?? (total > 0 ? Math.round((passed / total) * 100) : 0);
   const complianceColor = pct >= 70 ? 'var(--green)' : pct >= 40 ? 'var(--yellow)' : 'var(--red)';
   const kpis  = [
-    { label: 'Overall Compliance', value: `${pct}%`,     color: complianceColor,          accent: pct >= 70 ? 'kpi-card-green' : pct >= 40 ? 'kpi-card-yellow' : 'kpi-card-red' },
-    { label: 'Total Evidence',      value: stats.total,   color: 'var(--text-primary)',     accent: 'kpi-card-accent' },
-    { label: 'Passed',              value: stats.passed,  color: 'var(--green)',            accent: 'kpi-card-green' },
-    { label: 'Failed',              value: stats.failed,  color: 'var(--red)',              accent: 'kpi-card-red'   },
+    { label: 'Overall Compliance', value: `${pct}%`, color: complianceColor,          accent: pct >= 70 ? 'kpi-card-green' : pct >= 40 ? 'kpi-card-yellow' : 'kpi-card-red' },
+    { label: 'Total Evidence',     value: total,     color: 'var(--text-primary)',     accent: 'kpi-card-accent' },
+    { label: 'Passed',             value: passed,    color: 'var(--green)',            accent: 'kpi-card-green' },
+    { label: 'Failed',             value: failed,    color: 'var(--red)',              accent: 'kpi-card-red'   },
   ];
 
   return (
@@ -76,16 +80,16 @@ export default function AdminDashboard({ departments }) {
           <div style={{ flex: 1 }}>
             <div className="sec-title" style={{ marginBottom: '14px' }}>Breakdown</div>
             {[
-              { label: 'Passed',      n: stats.passed,      color: 'var(--green)'  },
-              { label: 'Failed',      n: stats.failed,      color: 'var(--red)'    },
-              { label: 'Need Review', n: stats.need_review, color: 'var(--yellow)' },
+              { label: 'Passed',      n: passed, color: 'var(--green)'  },
+              { label: 'Failed',      n: failed, color: 'var(--red)'    },
+              { label: 'Need Review', n: review, color: 'var(--yellow)' },
             ].map(r => (
               <div key={r.label} style={{ marginBottom: '12px' }}>
                 <div style={{ display: 'flex', justifyContent: 'space-between', marginBottom: '5px' }}>
                   <span style={{ fontSize: '12px', color: 'var(--text-secondary)' }}>{r.label}</span>
                   <span style={{ fontSize: '12px', fontWeight: 600, color: r.color }}>{r.n}</span>
                 </div>
-                <ProgressBar value={stats.total ? (r.n / stats.total) * 100 : 0} color={r.color} />
+                <ProgressBar value={total ? (r.n / total) * 100 : 0} color={r.color} />
               </div>
             ))}
           </div>
@@ -99,13 +103,13 @@ export default function AdminDashboard({ departments }) {
           </div>
           {stats.department_stats?.length ? (
             <div className="heatmap-grid">
-              {stats.department_stats.map(d => {
+              {stats.department_stats.map((d, i) => {
                 const p = d.total > 0 ? Math.round((d.passed / d.total) * 100) : 0;
                 const cls = d.total === 0 ? 'hm-none' : p >= 70 ? 'hm-high' : p >= 40 ? 'hm-medium' : 'hm-low';
                 return (
-                  <div key={d.name} className={`hm-cell ${cls}`}>
+                  <div key={`${d.department || 'department'}-${i}`} className={`hm-cell ${cls}`}>
                     <span className="hm-pct">{d.total === 0 ? '—' : `${p}%`}</span>
-                    <span className="hm-name">{d.name}</span>
+                    <span className="hm-name">{d.department}</span>
                   </div>
                 );
               })}
@@ -127,7 +131,7 @@ export default function AdminDashboard({ departments }) {
           <div className="sec-head">
             <div className="sec-title">Top Failing Controls</div>
           </div>
-          {stats.top_failing?.length ? (
+          {stats.top_failing_controls?.length ? (
             <table style={{ width: '100%', borderCollapse: 'collapse', fontSize: '12px' }}>
               <thead>
                 <tr>
@@ -136,11 +140,11 @@ export default function AdminDashboard({ departments }) {
                 </tr>
               </thead>
               <tbody>
-                {stats.top_failing.map((c, i) => (
+                {stats.top_failing_controls.map((c, i) => (
                   <tr key={i}>
-                    <td style={{ padding: '7px 0', color: 'var(--text-primary)', borderTop: i > 0 ? '1px solid var(--border)' : 'none' }}>{c.name}</td>
+                    <td style={{ padding: '7px 0', color: 'var(--text-primary)', borderTop: i > 0 ? '1px solid var(--border)' : 'none' }}>{c.control}</td>
                     <td style={{ textAlign: 'right', padding: '7px 0', borderTop: i > 0 ? '1px solid var(--border)' : 'none' }}>
-                      <span className="badge badge-fail">{c.count}</span>
+                      <span className="badge badge-fail">{c.fails}</span>
                     </td>
                   </tr>
                 ))}
@@ -162,7 +166,7 @@ export default function AdminDashboard({ departments }) {
           {departments.length ? (
             <div style={{ display: 'flex', flexDirection: 'column', gap: '10px' }}>
               {departments.map(d => {
-                const ds = stats.department_stats?.find(s => s.name === d.name);
+                const ds = stats.department_stats?.find(s => s.department === d.name);
                 const p  = ds?.total ? Math.round((ds.passed / ds.total) * 100) : 0;
                 return (
                   <div key={d.id}>

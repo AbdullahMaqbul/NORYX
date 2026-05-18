@@ -128,6 +128,30 @@ ANTIVIRUS_REVIEW = [
     "Protection history Recent items quarantined Review recommended 2 items need your attention",
 ]
 
+# PowerShell Get-MpComputerStatus format samples
+ANTIVIRUS_PASS_POWERSHELL = [
+    "AntivirusEnabled True RealTimeProtectionEnabled True BehaviorMonitorEnabled True AntivirusSignatureLastUpdated today DefenderSignaturesOutOfDate False",
+    "AMRunningMode Normal AMServiceEnabled True AntivirusEnabled True RealTimeProtectionEnabled True BehaviorMonitorEnabled True DefenderSignaturesOutOfDate False",
+    "Get-MpComputerStatus AntivirusEnabled True RealTimeProtectionEnabled True AntispywareEnabled True BehaviorMonitorEnabled True NISEnabled True OnAccessProtectionEnabled True",
+    "AntivirusEnabled True AntivirusSignatureAge 0 AntivirusSignatureLastUpdated 5/14/2026 RealTimeProtectionEnabled True DefenderSignaturesOutOfDate False IoavProtectionEnabled True",
+    "AMServiceEnabled True AntivirusEnabled True RealTimeProtectionEnabled True BehaviorMonitorEnabled True OnAccessProtectionEnabled True NISEnabled True DefenderSignaturesOutOfDate False",
+    "PowerShell Get-MpComputerStatus AntivirusEnabled True RealTimeProtectionEnabled True AMRunningMode Normal AntispywareEnabled True DefenderSignaturesOutOfDate False signatures updated today",
+    "Windows Defender status AntivirusEnabled True RealTimeProtectionEnabled True BehaviorMonitorEnabled True AntivirusSignatureLastUpdated today QuickScanAge 1 DefenderSignaturesOutOfDate False",
+    "AMEngineVersion 1.1 AMProductVersion 4.18 AntivirusEnabled True RealTimeProtectionEnabled True BehaviorMonitorEnabled True DefenderSignaturesOutOfDate False NISEnabled True",
+    "Defender antivirus status AMRunningMode Normal AntivirusEnabled True RealTimeProtectionEnabled True AntispywareEnabled True OnAccessProtectionEnabled True signatures current",
+    "Get-MpComputerStatus output AntivirusEnabled True RealTimeProtectionEnabled True BehaviorMonitorEnabled True DefenderSignaturesOutOfDate False AMServiceEnabled True NISEnabled True",
+]
+
+ANTIVIRUS_FAIL_POWERSHELL = [
+    "AntivirusEnabled False RealTimeProtectionEnabled False BehaviorMonitorEnabled False DefenderSignaturesOutOfDate True AMServiceEnabled False",
+    "Get-MpComputerStatus AntivirusEnabled False RealTimeProtectionEnabled False AntispywareEnabled False protection disabled device at risk",
+    "AMServiceEnabled False AntivirusEnabled False RealTimeProtectionEnabled False signatures outdated DefenderSignaturesOutOfDate True no protection",
+    "PowerShell Get-MpComputerStatus AntivirusEnabled False RealTimeProtectionEnabled False AMRunningMode Not Running antivirus disabled",
+    "AntivirusEnabled False AntivirusSignatureAge 120 DefenderSignaturesOutOfDate True RealTimeProtectionEnabled False device vulnerable",
+    "Defender disabled AMServiceEnabled False AntivirusEnabled False RealTimeProtectionEnabled False BehaviorMonitorEnabled False critical alert",
+    "Get-MpComputerStatus AntivirusEnabled False RealTimeProtectionEnabled False DefenderSignaturesOutOfDate True AMRunningMode Passive no active protection",
+]
+
 # ── ACTIVE DIRECTORY / USER MANAGEMENT ───────────────────────────────────────
 
 AD_PASS = [
@@ -351,6 +375,153 @@ IRRELEVANT = [
 ]
 
 
+# ── INCIDENT RESPONSE ────────────────────────────────────────────────────────
+
+INCIDENT_PASS = [
+    "Incident Response Plan IRP Version 4.2 Approved CISO Date 2026-03-01 Status Active Annual review completed",
+    "Tabletop exercise completed Ransomware simulation Participants 12 Result Pass Duration 3h 30m Gaps None critical",
+    "Incident register updated Severity P1 incidents 2 P2 incidents 7 All within SLA response times Escalation paths tested",
+    "Security incident log Event ID INC-2026-001 Status Closed Root cause identified Lessons learned documented",
+    "Incident response metrics MTTD 45 minutes MTTR 4 hours SLA P1 4h P2 8h All incidents within threshold",
+    "Annual tabletop exercise Ransomware Business Email Compromise Insider Threat all scenarios passed CISO sign-off obtained",
+    "IR playbook version 3.1 Approved Roles assigned CISO SOC Manager Legal HR IT Escalation matrix documented",
+    "Post-incident review completed Incident INC-2026-003 Timeline documented RCA performed Remediation actions tracked",
+    "Incident response team activated Security Operations Centre alert triaged Escalation to CISO completed within SLA",
+    "Security incident closed MTTR 2 hours 14 minutes Severity Medium Affected systems isolated Recovery verified No data loss",
+    "Tabletop exercise report all scenarios pass incident response plan validated communication tree tested DR procedures confirmed",
+    "IRP annual review completed version updated approved by board incident classification matrix reviewed escalation contacts verified",
+    "Security Operations Centre incident dashboard P1 open 0 P2 open 2 P3 closed 14 average resolution 3h 20m",
+    "Incident response drill conducted phishing to account takeover scenario CISO SOC Legal HR all participated outcome pass",
+]
+
+INCIDENT_FAIL = [
+    "No incident response plan documented No formal process exists Incidents handled ad hoc No escalation path",
+    "Incident response plan outdated Last reviewed 3 years ago Roles not assigned No recent tabletop exercise conducted",
+    "Incident log empty No incidents recorded No tracking system in place Security events not being logged or monitored",
+    "Tabletop exercise never conducted No testing of IRP Roles unknown Escalation contacts not maintained",
+    "Incident response metrics unavailable No SLA defined No tracking MTTD and MTTR not measured",
+    "IRP not approved No CISO sign-off No board awareness Undocumented procedures Staff unaware of roles",
+    "Security incidents handled informally No documentation No RCA performed Lessons learned not captured",
+    "P1 incident SLA breached Response time 18 hours SLA target 4 hours No escalation Incident not contained",
+    "no incident response plan no tabletop no escalation process security events ignored no documentation",
+    "incident response capability absent no team defined no playbook no communication plan response ad hoc",
+]
+
+INCIDENT_REVIEW = [
+    "Incident response plan draft in progress Review pending CISO approval expected next quarter",
+    "Tabletop exercise scheduled Date to be confirmed Participants identified Scenarios under development",
+    "Incident register partially populated Some incidents missing root cause analysis Remediation incomplete",
+    "IR metrics partially available MTTD tracked MTTR not consistently recorded Improvement needed",
+]
+
+# ── VULNERABILITY MANAGEMENT ─────────────────────────────────────────────────
+
+VULNERABILITY_PASS = [
+    "Tenable Nessus Vulnerability Scan Report Assets scanned 247 Critical 0 High 3 Medium 12 Low 45 All criticals patched within 15 days",
+    "Qualys Vulnerability Management Dashboard Total vulnerabilities Critical 0 High 5 Patch compliance 98% Last scan today",
+    "Monthly vulnerability scan completed All critical vulnerabilities remediated within SLA High vulnerabilities 3 in progress",
+    "Penetration test report 2026 Scope Internal and external No critical findings High 2 Medium 4 Low 8 All remediated",
+    "Vulnerability scan Tenable.io Critical vulnerabilities 0 All internet-facing systems scanned Monthly cadence maintained",
+    "Patch SLA compliance Critical 100% patched within 15 days High 95% within 30 days Medium 87% within 90 days",
+    "External penetration test completed Third party NCC Group Findings all remediated Certificate of compliance issued",
+    "Rapid7 InsightVM Scan Results Hosts scanned 312 Critical 0 High 2 Vulnerability score improved from 6.2 to 2.1",
+    "vulnerability management dashboard critical open 0 high open 4 remediation rate 97 percent scan coverage 100 percent",
+    "Annual pentest report scope external and internal all critical and high findings closed remediation verified by tester",
+    "Vulnerability scan results Asset Risk Score 2.4 out of 10 Improved from 5.8 Critical patches applied High patches applied",
+    "Tenable Security Center compliance scan CIS benchmark score 84 percent DISA STIG compliance 91 percent",
+]
+
+VULNERABILITY_FAIL = [
+    "Vulnerability scan not configured No scanning tool deployed Assets not assessed Security posture unknown",
+    "Tenable scan results Critical 15 High 47 Medium 134 No remediation plan Patches overdue 90 days",
+    "Penetration test overdue Last test 2 years ago No current assessment No external validation",
+    "Critical vulnerabilities unpatched CVE-2024-1234 CVSS 9.8 Unpatched 60 days Exploitation risk High",
+    "Vulnerability management absent No scan results No patch tracking No SLA defined Critical systems exposed",
+    "Patch SLA breached Critical patches 45 days overdue High patches 90 days overdue Compliance 23 percent",
+    "vulnerability scan critical 23 high 67 no remediation no tracking no sla critical systems unpatched",
+    "Rapid7 scan Critical 8 High 31 Patches last applied 6 months ago Risk rating Critical No mitigation",
+    "No penetration testing conducted Risk appetite undefined No vulnerability disclosure process Internal audit finding",
+]
+
+VULNERABILITY_REVIEW = [
+    "Vulnerability scan in progress 45 percent complete Critical assets being assessed Results pending",
+    "Penetration test scheduled for next quarter Vendor selected Scope being finalised CISO approval pending",
+    "Critical vulnerability CVE-2024-5678 Under investigation Patch assessment in progress Workaround applied",
+    "Vulnerability remediation in progress 8 of 15 criticals patched Remaining 7 in change queue",
+]
+
+# ── SECURITY AWARENESS & TRAINING ────────────────────────────────────────────
+
+TRAINING_PASS = [
+    "KnowBe4 Security Awareness Training Completion Report 2026 Overall completion 100% Phishing click rate 3% Target met",
+    "Security awareness training mandatory all staff completed Annual training 100% completion Department by department verified",
+    "Phishing simulation results Q1 2026 Click rate 2.8% Below 5% threshold Pass Departments all within SLA",
+    "Training completion report All employees completed security awareness 247 of 247 passed assessment Certification issued",
+    "Annual security training completed Staff count 312 Completion rate 99% Phishing simulation average click rate 2.1%",
+    "Role-based security training IT staff completed advanced threat training Developers secure coding completed 100%",
+    "Security awareness dashboard Completion 98% Phishing resilience score 94 out of 100 Trend improving Quarter on quarter",
+    "Training records 2026 All departments completed Information security awareness Data protection GDPR Phishing awareness",
+    "security awareness training 100 percent completion phishing simulation click rate 3 percent all staff certified",
+    "Proofpoint Security Awareness Training completion rate 97 percent click rate 2 percent report rate 45 percent excellent",
+    "Security training certificate All mandatory modules completed Staff certified Score 89 average Pass threshold 70",
+    "Annual awareness campaign completed Email security Phishing Password hygiene Social engineering all modules done",
+]
+
+TRAINING_FAIL = [
+    "Security awareness training not conducted No training programme exists Staff unaware of security policies",
+    "Training completion 34% Most staff have not completed mandatory security awareness No follow-up process",
+    "Phishing simulation click rate 38% Far above 5% threshold High risk Many staff clicked on phishing link",
+    "No security training records Staff training status unknown No tracking system No completion certificates",
+    "Training programme outdated Last updated 5 years ago Content not relevant No modern threat coverage",
+    "Phishing test results 42% click rate 18% credential submission rate Critical awareness gap identified",
+    "security awareness absent no training no phishing simulation no certificates staff uninformed",
+    "Training completion 12 percent phishing click rate 45 percent social engineering vulnerability critical",
+    "KnowBe4 training overdue 68% staff have not started mandatory modules No escalation No deadline",
+]
+
+TRAINING_REVIEW = [
+    "Security awareness training in progress Completion 67% Deadline extended Reminder emails sent",
+    "Phishing simulation running in progress Results pending Do not share with staff",
+    "Training programme update in progress New modules being developed Estimated completion next quarter",
+    "Training completion 82% Below 100% target 18% outstanding Manager escalation in progress",
+]
+
+# ── THIRD-PARTY RISK & VENDOR MANAGEMENT ─────────────────────────────────────
+
+THIRD_PARTY_PASS = [
+    "Vendor Security Assessment Register 2026 All critical vendors assessed Risk ratings current DPAs signed NCA ECC-4 compliant",
+    "Third-party risk assessment completed Vendor Accenture ME Risk rating High Controls verified DPA signed Next review scheduled",
+    "Supplier due diligence report Vendor Microsoft Azure Security controls verified ISO 27001 certified SOC 2 Type II report reviewed",
+    "Vendor risk register updated 10 vendors 8 Low risk 2 Medium risk 0 High unmitigated All assessments current",
+    "Third-party security questionnaire completed Vendor returned completed assessment Controls gap analysis performed",
+    "Contract security clause review Right to audit Data processing agreement Breach notification clause all present",
+    "Annual vendor review completed All critical vendors assessed Risk ratings updated Contracts reviewed DPAs renewed",
+    "Vendor audit report Managed SOC provider On-site audit completed All controls verified No major findings",
+    "third party risk register all vendors assessed dpa signed right to audit breach notification sla all compliant",
+    "Supplier security scorecard Palo Alto Networks Score 94 out of 100 ISO 27001 SOC 2 verified Low risk",
+    "Vendor assessment programme NCA ECC-4 All critical vendors completed questionnaire Security posture verified",
+    "Third-party due diligence DPA signed Security addendum Contract reviewed Legal approved All requirements met",
+]
+
+THIRD_PARTY_FAIL = [
+    "No vendor risk assessment programme No tracking No DPAs signed Third-party risk unmanaged",
+    "Vendor assessment overdue 4 high-risk vendors not assessed in over 12 months NCA ECC-4 non-compliant",
+    "Third-party contracts missing security clauses No right to audit No breach notification requirement",
+    "Vendor risk register empty No formal process No classification No risk ratings assigned",
+    "DPA not signed with data processors GDPR PDPL non-compliant Personal data shared without agreement",
+    "Third-party audit failed Vendor does not meet minimum security requirements Access should be revoked",
+    "vendor risk absent no assessments no dpa no contract clauses no tracking critical vendors unreviewed",
+    "Supplier security gaps identified critical vendor has no ISO certification no SOC report no security policy",
+    "Vendor breach notification gap No contractual obligation to notify breach discovered after 30 days",
+]
+
+THIRD_PARTY_REVIEW = [
+    "Vendor assessment in progress Questionnaire sent awaiting response Follow-up scheduled",
+    "Third-party risk register being updated New vendors being onboarded Assessment pending",
+    "DPA under review Legal team finalising contract amendment Vendor security clause to be added",
+    "Vendor risk rating under review Recent incident at supplier Re-assessment in progress",
+]
+
 # ══════════════════════════════════════════════════════════════════════════════
 # DATASET CONSTRUCTION
 # ══════════════════════════════════════════════════════════════════════════════
@@ -360,15 +531,23 @@ def build_dataset():
     rows = []
 
     # ── Per-category generation ──────────────────────────────────────────────
+    # Merge PowerShell format samples into antivirus lists
+    antivirus_pass_all = ANTIVIRUS_PASS + ANTIVIRUS_PASS_POWERSHELL
+    antivirus_fail_all = ANTIVIRUS_FAIL + ANTIVIRUS_FAIL_POWERSHELL
+
     categories = {
-        "firewall":   (FIREWALL_PASS, FIREWALL_FAIL, FIREWALL_REVIEW),
-        "antivirus":  (ANTIVIRUS_PASS, ANTIVIRUS_FAIL, ANTIVIRUS_REVIEW),
-        "access":     (AD_PASS, AD_FAIL, AD_REVIEW),
-        "logging":    (LOGGING_PASS, LOGGING_FAIL, LOGGING_REVIEW),
-        "patch":      (PATCH_PASS, PATCH_FAIL, PATCH_REVIEW),
-        "encryption": (ENCRYPTION_PASS, ENCRYPTION_FAIL, ENCRYPTION_REVIEW),
-        "backup":     (BACKUP_PASS, BACKUP_FAIL, BACKUP_REVIEW),
-        "network":    (NETWORK_PASS, NETWORK_FAIL, NETWORK_REVIEW),
+        "firewall":          (FIREWALL_PASS,     FIREWALL_FAIL,     FIREWALL_REVIEW),
+        "antivirus":         (antivirus_pass_all, antivirus_fail_all, ANTIVIRUS_REVIEW),
+        "access":            (AD_PASS,           AD_FAIL,           AD_REVIEW),
+        "logging":           (LOGGING_PASS,      LOGGING_FAIL,      LOGGING_REVIEW),
+        "patch":             (PATCH_PASS,        PATCH_FAIL,        PATCH_REVIEW),
+        "encryption":        (ENCRYPTION_PASS,   ENCRYPTION_FAIL,   ENCRYPTION_REVIEW),
+        "backup":            (BACKUP_PASS,       BACKUP_FAIL,       BACKUP_REVIEW),
+        "network":           (NETWORK_PASS,      NETWORK_FAIL,      NETWORK_REVIEW),
+        "incident_response": (INCIDENT_PASS,     INCIDENT_FAIL,     INCIDENT_REVIEW),
+        "vulnerability":     (VULNERABILITY_PASS,VULNERABILITY_FAIL,VULNERABILITY_REVIEW),
+        "training":          (TRAINING_PASS,     TRAINING_FAIL,     TRAINING_REVIEW),
+        "third_party":       (THIRD_PARTY_PASS,  THIRD_PARTY_FAIL,  THIRD_PARTY_REVIEW),
     }
 
     for category, (pass_t, fail_t, review_t) in categories.items():

@@ -5,11 +5,9 @@ const API = 'http://localhost:8000';
 const SEV = {
   Critical: { color: '#f05252', bg: 'rgba(240,82,82,0.09)',  border: 'rgba(240,82,82,0.25)', rank: 4 },
   High:     { color: '#f6b53e', bg: 'rgba(246,181,62,0.09)', border: 'rgba(246,181,62,0.25)', rank: 3 },
-  Medium:   { color: '#4f7af8', bg: 'rgba(79,122,248,0.09)', border: 'rgba(79,122,248,0.25)', rank: 2 },
+  Medium:   { color: '#2dd4bf', bg: 'rgba(45,212,191,0.09)', border: 'rgba(45,212,191,0.25)', rank: 2 },
   Low:      { color: '#22d46e', bg: 'rgba(34,212,110,0.09)', border: 'rgba(34,212,110,0.25)', rank: 1 },
 };
-
-/* ── tiny reusable pieces ─────────────────────────────────────────────────── */
 
 function Pill({ children, color, bg, border }) {
   return (
@@ -45,8 +43,6 @@ function ScoreBar({ pct, color, label }) {
   );
 }
 
-/* ── main threat row ─────────────────────────────────────────────────────── */
-
 function ThreatRow({ threat, rank, maxScore }) {
   const [open, setOpen] = useState(false);
   const c = SEV[threat.severity_label] || SEV.Low;
@@ -61,17 +57,15 @@ function ThreatRow({ threat, rank, maxScore }) {
       style={{
         borderRadius: 'var(--radius)',
         border: `1px solid ${open ? c.border : 'var(--border)'}`,
-        background: open ? c.bg : 'linear-gradient(160deg,#131725,#111420)',
+        background: open ? c.bg : 'var(--surface)',
         transition: 'all 0.18s',
         overflow: 'hidden',
       }}
     >
-      {/* ── collapsed header ── */}
       <div
         style={{ display: 'flex', alignItems: 'center', gap: 12, padding: '13px 15px', cursor: 'pointer' }}
         onClick={() => setOpen(o => !o)}
       >
-        {/* rank badge */}
         <div style={{
           width: 28, height: 28, borderRadius: 7, flexShrink: 0,
           display: 'flex', alignItems: 'center', justifyContent: 'center',
@@ -79,7 +73,6 @@ function ThreatRow({ threat, rank, maxScore }) {
           fontSize: 11, fontWeight: 800, color: c.color,
         }}>{rank}</div>
 
-        {/* identity */}
         <div style={{ flex: 1, minWidth: 0 }}>
           <div style={{ display: 'flex', alignItems: 'center', gap: 7, flexWrap: 'wrap', marginBottom: 3 }}>
             <span style={{ fontSize: 10.5, fontWeight: 700, color: c.color, fontFamily: 'monospace', letterSpacing: '0.05em' }}>
@@ -88,10 +81,9 @@ function ThreatRow({ threat, rank, maxScore }) {
             <SevBadge label={threat.severity_label} />
             <span style={{ fontSize: 10, color: 'var(--text-tertiary)', fontWeight: 500 }}>{threat.tactic}</span>
           </div>
-          <div style={{ fontSize: 13, fontWeight: 700, color: 'var(--text-primary)', letterSpacing: '-0.01em', overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap' }}>
+          <div style={{ fontSize: 13, fontWeight: 700, color: 'var(--text-primary)', letterSpacing: 0, overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap' }}>
             {threat.name}
           </div>
-          {/* relevance bar */}
           <div style={{ marginTop: 6, display: 'flex', alignItems: 'center', gap: 8 }}>
             <div style={{ flex: 1, height: 3, borderRadius: 9999, background: 'var(--surface-3)', overflow: 'hidden' }}>
               <div style={{ height: '100%', width: `${pct * 100}%`, borderRadius: 9999, background: c.color, transition: 'width 0.9s' }} />
@@ -102,9 +94,8 @@ function ThreatRow({ threat, rank, maxScore }) {
           </div>
         </div>
 
-        {/* CVSS block */}
         <div style={{ textAlign: 'right', flexShrink: 0 }}>
-          <div style={{ fontSize: 19, fontWeight: 800, color: c.color, letterSpacing: '-0.03em', lineHeight: 1 }}>
+          <div style={{ fontSize: 19, fontWeight: 800, color: c.color, letterSpacing: 0, lineHeight: 1 }}>
             {threat.severity_score.toFixed(1)}
           </div>
           <div style={{ fontSize: 9, color: 'var(--text-tertiary)', fontWeight: 700, textTransform: 'uppercase', letterSpacing: '0.07em', marginTop: 2 }}>
@@ -112,18 +103,15 @@ function ThreatRow({ threat, rank, maxScore }) {
           </div>
         </div>
 
-        {/* chevron */}
         <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="var(--text-tertiary)" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"
           style={{ flexShrink: 0, transform: open ? 'rotate(180deg)' : 'none', transition: 'transform 0.18s' }}>
           <polyline points="6 9 12 15 18 9"/>
         </svg>
       </div>
 
-      {/* ── expanded detail ── */}
       {open && (
         <div style={{ borderTop: `1px solid ${c.border}`, padding: '14px 15px', display: 'flex', flexDirection: 'column', gap: 14 }}>
 
-          {/* context tags */}
           <div style={{ display: 'flex', gap: 6, flexWrap: 'wrap' }}>
             <Pill color="var(--red)" bg="var(--red-dim)" border="var(--red-border)">
               ⚠ {threat.triggered_by}
@@ -138,15 +126,12 @@ function ThreatRow({ threat, rank, maxScore }) {
             )}
           </div>
 
-          {/* description */}
           <p style={{ fontSize: 12.5, color: 'var(--text-secondary)', lineHeight: 1.7, margin: 0 }}>
             {threat.description}
           </p>
 
-          {/* 3-col detail grid */}
           <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr 1fr', gap: 10 }}>
 
-            {/* APT Groups */}
             {apts.length > 0 && (
               <div style={{ background: 'var(--surface-2)', border: '1px solid var(--border-light)', borderRadius: 'var(--radius-sm)', padding: '10px 12px' }}>
                 <div style={{ fontSize: 9, fontWeight: 700, color: 'var(--text-tertiary)', textTransform: 'uppercase', letterSpacing: '0.09em', marginBottom: 7 }}>Known APT Groups</div>
@@ -159,7 +144,6 @@ function ThreatRow({ threat, rank, maxScore }) {
               </div>
             )}
 
-            {/* CVE Examples */}
             {cves.length > 0 && (
               <div style={{ background: 'var(--surface-2)', border: '1px solid var(--border-light)', borderRadius: 'var(--radius-sm)', padding: '10px 12px' }}>
                 <div style={{ fontSize: 9, fontWeight: 700, color: 'var(--text-tertiary)', textTransform: 'uppercase', letterSpacing: '0.09em', marginBottom: 7 }}>CVE Examples</div>
@@ -174,7 +158,6 @@ function ThreatRow({ threat, rank, maxScore }) {
               </div>
             )}
 
-            {/* NCA Domains */}
             {ncaDomains.length > 0 && (
               <div style={{ background: 'var(--surface-2)', border: '1px solid var(--border-light)', borderRadius: 'var(--radius-sm)', padding: '10px 12px' }}>
                 <div style={{ fontSize: 9, fontWeight: 700, color: 'var(--text-tertiary)', textTransform: 'uppercase', letterSpacing: '0.09em', marginBottom: 7 }}>NCA ECC Domains</div>
@@ -187,10 +170,9 @@ function ThreatRow({ threat, rank, maxScore }) {
             )}
           </div>
 
-          {/* AI score breakdown */}
           <div style={{ background: 'var(--surface-2)', border: '1px solid var(--border-light)', borderRadius: 'var(--radius-sm)', padding: '12px 14px' }}>
             <div style={{ fontSize: 9, fontWeight: 700, color: 'var(--text-tertiary)', textTransform: 'uppercase', letterSpacing: '0.09em', marginBottom: 10 }}>
-              AI Score Breakdown (BERT + Multi-Factor)
+              Score Breakdown
             </div>
             <div style={{ display: 'flex', flexDirection: 'column', gap: 7 }}>
               <ScoreBar pct={threat.semantic_sim ?? threat.combined_score} color="var(--purple)"  label="Semantic sim" />
@@ -200,7 +182,6 @@ function ThreatRow({ threat, rank, maxScore }) {
             </div>
           </div>
 
-          {/* mitigation */}
           <div style={{ display: 'flex', gap: 10, padding: '11px 13px', background: 'rgba(34,212,110,0.06)', border: '1px solid rgba(34,212,110,0.16)', borderRadius: 'var(--radius-sm)' }}>
             <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="var(--green)" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" style={{ flexShrink: 0, marginTop: 2 }}>
               <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/>
@@ -218,15 +199,13 @@ function ThreatRow({ threat, rank, maxScore }) {
   );
 }
 
-/* ── severity summary card ─────────────────────────────────────────────────── */
-
 function SevCard({ label, count, active, onClick }) {
   const c = SEV[label];
   return (
     <div
       onClick={onClick}
       style={{
-        background: active ? c.bg : 'linear-gradient(160deg,#131725,#111420)',
+        background: active ? c.bg : 'var(--surface)',
         border: `1px solid ${active ? c.border : 'var(--border)'}`,
         borderTop: `2px solid ${c.color}`,
         borderRadius: 'var(--radius)',
@@ -236,13 +215,11 @@ function SevCard({ label, count, active, onClick }) {
       }}
     >
       <div style={{ fontSize: 10, fontWeight: 700, textTransform: 'uppercase', letterSpacing: '0.09em', color: 'var(--text-tertiary)', marginBottom: 6 }}>{label}</div>
-      <div style={{ fontSize: 26, fontWeight: 800, color: c.color, letterSpacing: '-0.03em', lineHeight: 1 }}>{count}</div>
+      <div style={{ fontSize: 26, fontWeight: 800, color: c.color, letterSpacing: 0, lineHeight: 1 }}>{count}</div>
       <div style={{ fontSize: 10, color: 'var(--text-tertiary)', marginTop: 5 }}>{active ? 'click to clear' : 'click to filter'}</div>
     </div>
   );
 }
-
-/* ── main panel ──────────────────────────────────────────────────────────── */
 
 export default function ThreatPanel() {
   const [data,    setData]    = useState(null);
@@ -261,7 +238,7 @@ export default function ThreatPanel() {
   if (loading) return (
     <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', padding: 60, gap: 12, color: 'var(--text-tertiary)' }}>
       <span className="spin" style={{ fontSize: 22, color: 'var(--accent)' }}>↻</span>
-      <span style={{ fontSize: 13 }}>Analyzing threats with BERT…</span>
+      <span style={{ fontSize: 13 }}>Analyzing threat intelligence…</span>
     </div>
   );
 
@@ -275,32 +252,14 @@ export default function ThreatPanel() {
   return (
     <div style={{ display: 'flex', flexDirection: 'column', gap: 20 }}>
 
-      {/* ── header ── */}
       <div style={{ display: 'flex', alignItems: 'flex-start', justifyContent: 'space-between', gap: 16, flexWrap: 'wrap' }}>
         <div>
-          <div style={{ fontSize: 15, fontWeight: 800, color: 'var(--text-primary)', letterSpacing: '-0.02em', marginBottom: 4 }}>
+          <div style={{ fontSize: 15, fontWeight: 800, color: 'var(--text-primary)', letterSpacing: 0, marginBottom: 4 }}>
             Cyber Threat Intelligence
-          </div>
-          <div style={{ fontSize: 12, color: 'var(--text-tertiary)', lineHeight: 1.6 }}>
-            BERT semantic matching against {threats.length} MITRE ATT&amp;CK techniques &nbsp;·&nbsp;
-            {total_failed_controls} non-compliant control{total_failed_controls !== 1 ? 's' : ''} &nbsp;·&nbsp;
-            ranked by severity × relevance × real-world prevalence
-          </div>
-        </div>
-
-        {/* model badge */}
-        <div style={{ display: 'flex', alignItems: 'center', gap: 8, padding: '7px 12px', background: 'var(--accent-dim)', border: '1px solid var(--accent-border)', borderRadius: 'var(--radius-sm)', flexShrink: 0 }}>
-          <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="var(--accent-bright)" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-            <circle cx="12" cy="12" r="3"/><path d="M19.07 4.93a10 10 0 0 1 0 14.14M4.93 4.93a10 10 0 0 0 0 14.14"/>
-          </svg>
-          <div>
-            <div style={{ fontSize: 9, fontWeight: 700, color: 'var(--accent-bright)', textTransform: 'uppercase', letterSpacing: '0.09em' }}>AI Model</div>
-            <div style={{ fontSize: 11, fontWeight: 700, color: 'var(--text-primary)' }}>BERT v2 · 768-dim</div>
           </div>
         </div>
       </div>
 
-      {/* ── risk alert ── */}
       {most_at_risk_department && threats.length > 0 && (
         <div style={{ display: 'flex', alignItems: 'center', gap: 12, padding: '12px 16px', background: 'rgba(240,82,82,0.07)', border: '1px solid rgba(240,82,82,0.22)', borderRadius: 'var(--radius)' }}>
           <div style={{ width: 36, height: 36, borderRadius: 'var(--radius-sm)', background: 'rgba(240,82,82,0.12)', border: '1px solid rgba(240,82,82,0.25)', display: 'flex', alignItems: 'center', justifyContent: 'center', flexShrink: 0 }}>
@@ -316,13 +275,12 @@ export default function ThreatPanel() {
             </div>
           </div>
           <div style={{ marginLeft: 'auto', textAlign: 'right', flexShrink: 0 }}>
-            <div style={{ fontSize: 22, fontWeight: 800, color: '#f05252', letterSpacing: '-0.03em' }}>{total_failed_controls}</div>
+            <div style={{ fontSize: 22, fontWeight: 800, color: '#f05252', letterSpacing: 0 }}>{total_failed_controls}</div>
             <div style={{ fontSize: 9, color: 'var(--text-tertiary)', fontWeight: 700, textTransform: 'uppercase', letterSpacing: '0.08em' }}>failed controls</div>
           </div>
         </div>
       )}
 
-      {/* ── severity cards ── */}
       <div className="g4">
         {['Critical', 'High', 'Medium', 'Low'].map(label => (
           <SevCard
@@ -335,7 +293,6 @@ export default function ThreatPanel() {
         ))}
       </div>
 
-      {/* ── no threats ── */}
       {threats.length === 0 && (
         <div className="card">
           <div className="empty" style={{ padding: '56px 20px' }}>
@@ -351,10 +308,8 @@ export default function ThreatPanel() {
         </div>
       )}
 
-      {/* ── threat list ── */}
       {threats.length > 0 && (
         <div>
-          {/* filter pills */}
           <div style={{ display: 'flex', alignItems: 'center', gap: 6, marginBottom: 12, flexWrap: 'wrap' }}>
             <span style={{ fontSize: 11, color: 'var(--text-tertiary)', fontWeight: 600, marginRight: 4 }}>Filter:</span>
             {['All', 'Critical', 'High', 'Medium', 'Low'].map(f => {

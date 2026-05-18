@@ -1,0 +1,852 @@
+[
+  {
+    "name": "CTRL-001",
+    "description": "Antivirus Real-Time Protection shall be enabled on Windows endpoints. Evidence may include Windows Security, Microsoft Defender status, service output, or endpoint protection console evidence, with indicators such as real-time protection, on, enabled, antivirus.",
+    "criteria": "real-time protection, on, enabled, antivirus"
+  },
+  {
+    "name": "CTRL-002",
+    "description": "Microsoft Defender Antivirus Service shall be running on Windows endpoints. Evidence may include Windows Security, Microsoft Defender status, service output, or endpoint protection console evidence, with indicators such as windefend, running, microsoft defender antivirus service.",
+    "criteria": "windefend, running, microsoft defender antivirus service"
+  },
+  {
+    "name": "CTRL-003",
+    "description": "Defender Cloud-Delivered Protection shall be enabled on Windows endpoints. Evidence may include Windows Security, Microsoft Defender status, service output, or endpoint protection console evidence, with indicators such as cloud-delivered protection, on, mapsreporting, defender.",
+    "criteria": "cloud-delivered protection, on, mapsreporting, defender"
+  },
+  {
+    "name": "CTRL-004",
+    "description": "Automatic Sample Submission shall be enabled on Windows endpoints. Evidence may include Windows Security, Microsoft Defender status, service output, or endpoint protection console evidence, with indicators such as automatic sample submission, send safe samples, enabled.",
+    "criteria": "automatic sample submission, send safe samples, enabled"
+  },
+  {
+    "name": "CTRL-005",
+    "description": "Defender Tamper Protection shall be enabled on Windows endpoints. Evidence may include Windows Security, Microsoft Defender status, service output, or endpoint protection console evidence, with indicators such as tamper protection, on, enabled, defender.",
+    "criteria": "tamper protection, on, enabled, defender"
+  },
+  {
+    "name": "CTRL-006",
+    "description": "Defender Behavior Monitoring shall be enabled on Windows endpoints. Evidence may include Windows Security, Microsoft Defender status, service output, or endpoint protection console evidence, with indicators such as behavior monitoring, disablebehaviormonitoring, false, defender.",
+    "criteria": "behavior monitoring, disablebehaviormonitoring, false, defender"
+  },
+  {
+    "name": "CTRL-007",
+    "description": "Defender Network Protection shall be enabled on Windows endpoints. Evidence may include Windows Security, Microsoft Defender status, service output, or endpoint protection console evidence, with indicators such as network protection, enablenetworkprotection, enabled, defender.",
+    "criteria": "network protection, enablenetworkprotection, enabled, defender"
+  },
+  {
+    "name": "CTRL-008",
+    "description": "Potentially Unwanted App Blocking shall be enabled on Windows endpoints. Evidence may include Windows Security, Microsoft Defender status, service output, or endpoint protection console evidence, with indicators such as pua protection, potentially unwanted app blocking, enabled.",
+    "criteria": "pua protection, potentially unwanted app blocking, enabled"
+  },
+  {
+    "name": "CTRL-009",
+    "description": "Controlled Folder Access shall be enabled on Windows endpoints. Evidence may include Windows Security, Microsoft Defender status, service output, or endpoint protection console evidence, with indicators such as controlled folder access, ransomware protection, enabled.",
+    "criteria": "controlled folder access, ransomware protection, enabled"
+  },
+  {
+    "name": "CTRL-010",
+    "description": "Defender Security Intelligence shall be current on Windows endpoints. Evidence may include Windows Security, Microsoft Defender status, service output, or endpoint protection console evidence, with indicators such as security intelligence, antivirussignaturelastupdated, up to date, defender.",
+    "criteria": "security intelligence, antivirussignaturelastupdated, up to date, defender, current"
+  },
+  {
+    "name": "CTRL-011",
+    "description": "Defender Platform Version shall be current on Windows endpoints. Evidence may include Windows Security, Microsoft Defender status, service output, or endpoint protection console evidence, with indicators such as amproductversion, platform version, current, defender.",
+    "criteria": "amproductversion, platform version, current, defender"
+  },
+  {
+    "name": "CTRL-012",
+    "description": "Broad Microsoft Defender exclusions shall not be configured on Windows endpoints. Evidence may include Windows Security, Microsoft Defender status, service output, or endpoint protection console evidence, with indicators such as exclusionpath, exclusionprocess, none, broad.",
+    "criteria": "exclusionpath, exclusionprocess, none, broad, defender, exclusions"
+  },
+  {
+    "name": "CTRL-013",
+    "description": "Attack Surface Reduction Rules shall be enabled on Windows endpoints. Evidence may include Windows Security, Microsoft Defender status, service output, or endpoint protection console evidence, with indicators such as attack surface reduction, asr, enabled, rules.",
+    "criteria": "attack surface reduction, asr, enabled, rules"
+  },
+  {
+    "name": "CTRL-014",
+    "description": "EDR Sensor Service shall be running on Windows endpoints. Evidence may include Windows Security, Microsoft Defender status, service output, or endpoint protection console evidence, with indicators such as edr, sensor, running, healthy.",
+    "criteria": "edr, sensor, running, healthy, service"
+  },
+  {
+    "name": "CTRL-015",
+    "description": "The endpoint protection dashboard shall show the Windows device as healthy. Evidence may include Windows Security, Microsoft Defender status, service output, or endpoint protection console evidence, with indicators such as device health, no active alerts, healthy, protection.",
+    "criteria": "device health, no active alerts, healthy, protection, dashboard"
+  },
+  {
+    "name": "CTRL-016",
+    "description": "Domain Firewall Profile shall be enabled on Windows endpoints. Evidence may include Windows Defender Firewall profile settings, PowerShell firewall output, or local policy screenshots, with indicators such as domain profile, firewall state, on, network.",
+    "criteria": "domain profile, firewall state, on, network, protection"
+  },
+  {
+    "name": "CTRL-017",
+    "description": "Private Firewall Profile shall be enabled on Windows endpoints. Evidence may include Windows Defender Firewall profile settings, PowerShell firewall output, or local policy screenshots, with indicators such as private profile, firewall state, on, network.",
+    "criteria": "private profile, firewall state, on, network, protection"
+  },
+  {
+    "name": "CTRL-018",
+    "description": "Public Firewall Profile shall be enabled on Windows endpoints. Evidence may include Windows Defender Firewall profile settings, PowerShell firewall output, or local policy screenshots, with indicators such as public profile, firewall state, on, network.",
+    "criteria": "public profile, firewall state, on, network, protection"
+  },
+  {
+    "name": "CTRL-019",
+    "description": "Domain Firewall Default Inbound shall be blocked on Windows endpoints. Evidence may include Windows Defender Firewall profile settings, PowerShell firewall output, or local policy screenshots, with indicators such as defaultinboundaction, block, domain, firewall.",
+    "criteria": "defaultinboundaction, block, domain, firewall, default, inbound, blocked, network, protection"
+  },
+  {
+    "name": "CTRL-020",
+    "description": "Private Firewall Default Inbound shall be blocked on Windows endpoints. Evidence may include Windows Defender Firewall profile settings, PowerShell firewall output, or local policy screenshots, with indicators such as defaultinboundaction, block, private, firewall.",
+    "criteria": "defaultinboundaction, block, private, firewall, default, inbound, blocked, network, protection"
+  },
+  {
+    "name": "CTRL-021",
+    "description": "Public Firewall Default Inbound shall be blocked on Windows endpoints. Evidence may include Windows Defender Firewall profile settings, PowerShell firewall output, or local policy screenshots, with indicators such as defaultinboundaction, block, public, firewall.",
+    "criteria": "defaultinboundaction, block, public, firewall, default, inbound, blocked, network, protection"
+  },
+  {
+    "name": "CTRL-022",
+    "description": "Firewall Dropped Packet Logging shall be enabled on Windows endpoints. Evidence may include Windows Defender Firewall profile settings, PowerShell firewall output, or local policy screenshots, with indicators such as logdroppedpackets, enable, pfirewall.log, firewall.",
+    "criteria": "logdroppedpackets, enable, pfirewall.log, firewall, dropped, packet, logging, network, protection, log"
+  },
+  {
+    "name": "CTRL-023",
+    "description": "Firewall Successful Connection Logging shall be enabled on Windows endpoints. Evidence may include Windows Defender Firewall profile settings, PowerShell firewall output, or local policy screenshots, with indicators such as logsuccessfulconnections, enable, pfirewall.log, firewall.",
+    "criteria": "logsuccessfulconnections, enable, pfirewall.log, firewall, successful, connection, logging, network, protection, log"
+  },
+  {
+    "name": "CTRL-024",
+    "description": "Windows endpoint evidence shall demonstrate sMB Inbound Blocked on Public Networks. Evidence may include Windows Defender Firewall profile settings, PowerShell firewall output, or local policy screenshots, with indicators such as file and printer sharing, public, disabled, smb.",
+    "criteria": "file and printer sharing, public, disabled, smb, inbound, blocked, networks, firewall, network, protection"
+  },
+  {
+    "name": "CTRL-025",
+    "description": "ICMP Echo Requests shall be restricted on Windows endpoints. Evidence may include Windows Defender Firewall profile settings, PowerShell firewall output, or local policy screenshots, with indicators such as icmpv4, echo request, blocked, icmp.",
+    "criteria": "icmpv4, echo request, blocked, icmp, requests, restricted, firewall, network, protection"
+  },
+  {
+    "name": "CTRL-026",
+    "description": "Remote Assistance Firewall Rules shall be disabled on Windows endpoints. Evidence may include Windows Defender Firewall profile settings, PowerShell firewall output, or local policy screenshots, with indicators such as remote assistance, firewall rule, disabled, rules.",
+    "criteria": "remote assistance, firewall rule, disabled, rules, network, protection"
+  },
+  {
+    "name": "CTRL-027",
+    "description": "Any-any inbound firewall allow rules shall not be present on Windows endpoints. Evidence may include Windows Defender Firewall profile settings, PowerShell firewall output, or local policy screenshots, with indicators such as inbound, allow, any-any, firewall.",
+    "criteria": "inbound, allow, any-any, firewall, rules, network, protection"
+  },
+  {
+    "name": "CTRL-028",
+    "description": "Windows endpoint evidence shall demonstrate network Discovery Disabled on Public Profile. Evidence may include Windows Defender Firewall profile settings, PowerShell firewall output, or local policy screenshots, with indicators such as network discovery, public, off, profile.",
+    "criteria": "network discovery, public, off, profile, firewall, protection"
+  },
+  {
+    "name": "CTRL-029",
+    "description": "Windows endpoint evidence shall demonstrate bitLocker Enabled on Operating System Drive. Evidence may include BitLocker Control Panel, manage-bde output, PowerShell encryption status, or removable drive policy evidence, with indicators such as bitlocker, c:, protection on, operating.",
+    "criteria": "bitlocker, c:, protection on, operating, system, drive, data"
+  },
+  {
+    "name": "CTRL-030",
+    "description": "Operating System Drive Encryption shall be complete on Windows endpoints. Evidence may include BitLocker Control Panel, manage-bde output, PowerShell encryption status, or removable drive policy evidence, with indicators such as percentage encrypted, 100%, fully encrypted, operating.",
+    "criteria": "percentage encrypted, 100%, fully encrypted, operating, system, drive, encryption, complete, data, protection"
+  },
+  {
+    "name": "CTRL-031",
+    "description": "BitLocker Recovery Protector shall be present on Windows endpoints. Evidence may include BitLocker Control Panel, manage-bde output, PowerShell encryption status, or removable drive policy evidence, with indicators such as recovery password, numerical password, protector, bitlocker.",
+    "criteria": "recovery password, numerical password, protector, bitlocker, present, data, protection"
+  },
+  {
+    "name": "CTRL-032",
+    "description": "BitLocker shall use a strong encryption method on Windows endpoints. Evidence may include BitLocker Control Panel, manage-bde output, PowerShell encryption status, or removable drive policy evidence, with indicators such as xts-aes, encryption method, bitlocker, uses.",
+    "criteria": "xts-aes, encryption method, bitlocker, uses, strong, data, protection"
+  },
+  {
+    "name": "CTRL-033",
+    "description": "BitLocker TPM Protector shall be enabled on Windows endpoints. Evidence may include BitLocker Control Panel, manage-bde output, PowerShell encryption status, or removable drive policy evidence, with indicators such as tpm, key protector, enabled, bitlocker.",
+    "criteria": "tpm, key protector, enabled, bitlocker, data, protection"
+  },
+  {
+    "name": "CTRL-034",
+    "description": "Windows endpoint evidence shall demonstrate auto-Unlock Disabled for Fixed Data Drives. Evidence may include BitLocker Control Panel, manage-bde output, PowerShell encryption status, or removable drive policy evidence, with indicators such as auto unlock, disabled, fixed data drives, auto-unlock.",
+    "criteria": "auto unlock, disabled, fixed data drives, auto-unlock, protection"
+  },
+  {
+    "name": "CTRL-035",
+    "description": "Removable Drive Encryption Policy shall be configured on Windows endpoints. Evidence may include BitLocker Control Panel, manage-bde output, PowerShell encryption status, or removable drive policy evidence, with indicators such as removable data drives, bitlocker, deny write access, drive.",
+    "criteria": "removable data drives, bitlocker, deny write access, drive, encryption, protection"
+  },
+  {
+    "name": "CTRL-036",
+    "description": "TPM shall be present and ready on Windows endpoints. Evidence may include System Information, Windows Security device security pages, firmware status, or TPM PowerShell output, with indicators such as tpm present, tpmready, true, ready.",
+    "criteria": "tpm present, tpmready, true, ready, platform"
+  },
+  {
+    "name": "CTRL-037",
+    "description": "TPM Ownership shall be initialized on Windows endpoints. Evidence may include System Information, Windows Security device security pages, firmware status, or TPM PowerShell output, with indicators such as tpmowned, true, ownerauth, tpm.",
+    "criteria": "tpmowned, true, ownerauth, tpm, ownership, initialized, platform"
+  },
+  {
+    "name": "CTRL-038",
+    "description": "Secure Boot shall be enabled on Windows endpoints. Evidence may include System Information, Windows Security device security pages, firmware status, or TPM PowerShell output, with indicators such as secure boot state, on, confirm-securebootuefi, platform.",
+    "criteria": "secure boot state, on, confirm-securebootuefi, platform"
+  },
+  {
+    "name": "CTRL-039",
+    "description": "UEFI Boot Mode shall be enabled on Windows endpoints. Evidence may include System Information, Windows Security device security pages, firmware status, or TPM PowerShell output, with indicators such as bios mode, uefi, system information, boot.",
+    "criteria": "bios mode, uefi, system information, boot, platform"
+  },
+  {
+    "name": "CTRL-040",
+    "description": "Core Isolation Memory Integrity shall be enabled on Windows endpoints. Evidence may include System Information, Windows Security device security pages, firmware status, or TPM PowerShell output, with indicators such as memory integrity, on, core isolation, platform.",
+    "criteria": "memory integrity, on, core isolation, platform"
+  },
+  {
+    "name": "CTRL-041",
+    "description": "Minimum Password Length shall be configured to at least 12 characters on Windows endpoints. Evidence may include Local Security Policy, Group Policy results, net accounts output, or local user and group evidence, with indicators such as minimum password length, 12, password policy, least.",
+    "criteria": "minimum password length, 12, password policy, least, identity, access, management"
+  },
+  {
+    "name": "CTRL-042",
+    "description": "Password Complexity shall be enabled on Windows endpoints. Evidence may include Local Security Policy, Group Policy results, net accounts output, or local user and group evidence, with indicators such as password must meet complexity requirements, enabled, identity, access.",
+    "criteria": "password must meet complexity requirements, enabled, identity, access, management"
+  },
+  {
+    "name": "CTRL-043",
+    "description": "Password History shall be enforced on Windows endpoints. Evidence may include Local Security Policy, Group Policy results, net accounts output, or local user and group evidence, with indicators such as enforce password history, 24, passwords remembered, enforced.",
+    "criteria": "enforce password history, 24, passwords remembered, enforced, identity, access, management"
+  },
+  {
+    "name": "CTRL-044",
+    "description": "Maximum Password Age shall be configured to 90 days or less on Windows endpoints. Evidence may include Local Security Policy, Group Policy results, net accounts output, or local user and group evidence, with indicators such as maximum password age, 90, days, less.",
+    "criteria": "maximum password age, 90, days, less, identity, access, management"
+  },
+  {
+    "name": "CTRL-045",
+    "description": "Minimum Password Age shall be configured to at least 1 Day on Windows endpoints. Evidence may include Local Security Policy, Group Policy results, net accounts output, or local user and group evidence, with indicators such as minimum password age, 1, day, least.",
+    "criteria": "minimum password age, 1, day, least, identity, access, management"
+  },
+  {
+    "name": "CTRL-046",
+    "description": "Reversible Password Encryption shall be disabled on Windows endpoints. Evidence may include Local Security Policy, Group Policy results, net accounts output, or local user and group evidence, with indicators such as store passwords using reversible encryption, disabled, password, identity.",
+    "criteria": "store passwords using reversible encryption, disabled, password, identity, access, management"
+  },
+  {
+    "name": "CTRL-047",
+    "description": "Account Lockout Threshold shall be configured on Windows endpoints. Evidence may include Local Security Policy, Group Policy results, net accounts output, or local user and group evidence, with indicators such as account lockout threshold, invalid logon attempts, identity, access.",
+    "criteria": "account lockout threshold, invalid logon attempts, identity, access, management"
+  },
+  {
+    "name": "CTRL-048",
+    "description": "Account Lockout Duration shall be configured to at least 15 Minutes on Windows endpoints. Evidence may include Local Security Policy, Group Policy results, net accounts output, or local user and group evidence, with indicators such as account lockout duration, 15, minutes, least.",
+    "criteria": "account lockout duration, 15, minutes, least, identity, access, management"
+  },
+  {
+    "name": "CTRL-049",
+    "description": "Reset Account Lockout Counter shall be configured to at least 15 Minutes on Windows endpoints. Evidence may include Local Security Policy, Group Policy results, net accounts output, or local user and group evidence, with indicators such as reset account lockout counter after, 15, minutes, least.",
+    "criteria": "reset account lockout counter after, 15, minutes, least, identity, access, management"
+  },
+  {
+    "name": "CTRL-050",
+    "description": "Guest Account shall be disabled on Windows endpoints. Evidence may include Local Security Policy, Group Policy results, net accounts output, or local user and group evidence, with indicators such as guest, account active, no, identity.",
+    "criteria": "guest, account active, no, identity, access, management"
+  },
+  {
+    "name": "CTRL-051",
+    "description": "Windows endpoint evidence shall demonstrate built-In Administrator Account Disabled or Renamed. Evidence may include Local Security Policy, Group Policy results, net accounts output, or local user and group evidence, with indicators such as administrator, account active, no, renamed.",
+    "criteria": "administrator, account active, no, renamed, built-in, identity, access, management"
+  },
+  {
+    "name": "CTRL-052",
+    "description": "Blank Password Local Logon shall be disabled on Windows endpoints. Evidence may include Local Security Policy, Group Policy results, net accounts output, or local user and group evidence, with indicators such as limit local account use of blank passwords, enabled, password, logon.",
+    "criteria": "limit local account use of blank passwords, enabled, password, logon, identity, access, management"
+  },
+  {
+    "name": "CTRL-053",
+    "description": "User Account Control shall be enabled on Windows endpoints. Evidence may include Local Security Policy, Group Policy results, net accounts output, or local user and group evidence, with indicators such as enablelua, 1, user account control, identity.",
+    "criteria": "enablelua, 1, user account control, identity, access, management"
+  },
+  {
+    "name": "CTRL-054",
+    "description": "Admin Approval Mode shall be enabled on Windows endpoints. Evidence may include Local Security Policy, Group Policy results, net accounts output, or local user and group evidence, with indicators such as admin approval mode, enabled, consentpromptbehavioradmin, identity.",
+    "criteria": "admin approval mode, enabled, consentpromptbehavioradmin, identity, access, management"
+  },
+  {
+    "name": "CTRL-055",
+    "description": "Local Administrators Group Membership shall be limited to authorized users on Windows endpoints. Evidence may include Local Security Policy, Group Policy results, net accounts output, or local user and group evidence, with indicators such as administrators, members, approved, local.",
+    "criteria": "administrators, members, approved, local, group, membership, limited, identity, access, management"
+  },
+  {
+    "name": "CTRL-056",
+    "description": "Audit Logon Success and Failure shall be enabled on Windows endpoints. Evidence may include Advanced Audit Policy, Event Viewer, auditpol output, or Windows logging configuration evidence, with indicators such as logon, success and failure, auditpol, audit.",
+    "criteria": "logon, success and failure, auditpol, audit, logging"
+  },
+  {
+    "name": "CTRL-057",
+    "description": "Audit Account Logon Success and Failure shall be enabled on Windows endpoints. Evidence may include Advanced Audit Policy, Event Viewer, auditpol output, or Windows logging configuration evidence, with indicators such as account logon, success and failure, auditpol, audit.",
+    "criteria": "account logon, success and failure, auditpol, audit, logging"
+  },
+  {
+    "name": "CTRL-058",
+    "description": "Audit Account Management shall be enabled on Windows endpoints. Evidence may include Advanced Audit Policy, Event Viewer, auditpol output, or Windows logging configuration evidence, with indicators such as account management, success and failure, auditpol, audit.",
+    "criteria": "account management, success and failure, auditpol, audit, logging"
+  },
+  {
+    "name": "CTRL-059",
+    "description": "Audit Policy Change shall be enabled on Windows endpoints. Evidence may include Advanced Audit Policy, Event Viewer, auditpol output, or Windows logging configuration evidence, with indicators such as policy change, success and failure, auditpol, audit.",
+    "criteria": "policy change, success and failure, auditpol, audit, logging"
+  },
+  {
+    "name": "CTRL-060",
+    "description": "Audit Privilege Use Failure shall be enabled on Windows endpoints. Evidence may include Advanced Audit Policy, Event Viewer, auditpol output, or Windows logging configuration evidence, with indicators such as privilege use, failure, auditpol, audit.",
+    "criteria": "privilege use, failure, auditpol, audit, logging"
+  },
+  {
+    "name": "CTRL-061",
+    "description": "Audit System Events shall be enabled on Windows endpoints. Evidence may include Advanced Audit Policy, Event Viewer, auditpol output, or Windows logging configuration evidence, with indicators such as system, success and failure, auditpol, audit.",
+    "criteria": "system, success and failure, auditpol, audit, events, logging"
+  },
+  {
+    "name": "CTRL-062",
+    "description": "Audit Object Access Failure shall be enabled on Windows endpoints. Evidence may include Advanced Audit Policy, Event Viewer, auditpol output, or Windows logging configuration evidence, with indicators such as object access, failure, auditpol, audit.",
+    "criteria": "object access, failure, auditpol, audit, logging"
+  },
+  {
+    "name": "CTRL-063",
+    "description": "Process Creation Auditing shall be enabled on Windows endpoints. Evidence may include Advanced Audit Policy, Event Viewer, auditpol output, or Windows logging configuration evidence, with indicators such as process creation, 4688, success, auditing.",
+    "criteria": "process creation, 4688, success, auditing, audit, logging"
+  },
+  {
+    "name": "CTRL-064",
+    "description": "Command-line details shall be included in Windows process creation events. Evidence may include Advanced Audit Policy, Event Viewer, auditpol output, or Windows logging configuration evidence, with indicators such as include command line, process creation, enabled, included.",
+    "criteria": "include command line, process creation, enabled, included, events, audit, logging"
+  },
+  {
+    "name": "CTRL-065",
+    "description": "PowerShell Script Block Logging shall be enabled on Windows endpoints. Evidence may include Advanced Audit Policy, Event Viewer, auditpol output, or Windows logging configuration evidence, with indicators such as script block logging, enablescriptblocklogging, 1, audit.",
+    "criteria": "script block logging, enablescriptblocklogging, 1, audit"
+  },
+  {
+    "name": "CTRL-066",
+    "description": "PowerShell Module Logging shall be enabled on Windows endpoints. Evidence may include Advanced Audit Policy, Event Viewer, auditpol output, or Windows logging configuration evidence, with indicators such as module logging, enablemodulelogging, 1, audit.",
+    "criteria": "module logging, enablemodulelogging, 1, audit"
+  },
+  {
+    "name": "CTRL-067",
+    "description": "PowerShell Transcription shall be enabled on Windows endpoints. Evidence may include Advanced Audit Policy, Event Viewer, auditpol output, or Windows logging configuration evidence, with indicators such as transcription, enabletranscripting, 1, audit.",
+    "criteria": "transcription, enabletranscripting, 1, audit, logging"
+  },
+  {
+    "name": "CTRL-068",
+    "description": "Security Event Log Size shall be configured to at least 196 MB on Windows endpoints. Evidence may include Advanced Audit Policy, Event Viewer, auditpol output, or Windows logging configuration evidence, with indicators such as maximum log size, 196608, event, least.",
+    "criteria": "maximum log size, 196608, event, least, 196, audit, logging"
+  },
+  {
+    "name": "CTRL-069",
+    "description": "Security Event Log Retention shall be configured on Windows endpoints. Evidence may include Advanced Audit Policy, Event Viewer, auditpol output, or Windows logging configuration evidence, with indicators such as retention method, overwrite events as needed, do not overwrite, event.",
+    "criteria": "retention method, overwrite events as needed, do not overwrite, event, log, audit, logging"
+  },
+  {
+    "name": "CTRL-070",
+    "description": "Defender Operational Log shall be enabled on Windows endpoints. Evidence may include Advanced Audit Policy, Event Viewer, auditpol output, or Windows logging configuration evidence, with indicators such as microsoft-windows-windows defender/operational, enabled, log, audit.",
+    "criteria": "microsoft-windows-windows defender/operational, enabled, log, audit, logging"
+  },
+  {
+    "name": "CTRL-071",
+    "description": "Automatic Windows Updates shall be enabled on Windows endpoints. Evidence may include Windows Update settings, update history, service status, or installed hotfix evidence, with indicators such as automatic updates, enabled, auoptions, patch.",
+    "criteria": "automatic updates, enabled, auoptions, patch, management"
+  },
+  {
+    "name": "CTRL-072",
+    "description": "Windows Update Service shall be running on Windows endpoints. Evidence may include Windows Update settings, update history, service status, or installed hotfix evidence, with indicators such as wuauserv, running, windows update, service.",
+    "criteria": "wuauserv, running, windows update, service, patch, management"
+  },
+  {
+    "name": "CTRL-073",
+    "description": "Windows endpoints shall show a successful update within the last 30 days. Evidence may include Windows Update settings, update history, service status, or installed hotfix evidence, with indicators such as last successful update, installed on, update history, days.",
+    "criteria": "last successful update, installed on, update history, days, patch, management"
+  },
+  {
+    "name": "CTRL-074",
+    "description": "The latest cumulative Windows security update shall be installed on endpoints. Evidence may include Windows Update settings, update history, service status, or installed hotfix evidence, with indicators such as cumulative update, successfully installed, kb, latest.",
+    "criteria": "cumulative update, successfully installed, kb, latest, patch, management"
+  },
+  {
+    "name": "CTRL-075",
+    "description": "Critical security updates shall not be pending on Windows endpoints. Evidence may include Windows Update settings, update history, service status, or installed hotfix evidence, with indicators such as important updates, security update, pending, critical.",
+    "criteria": "important updates, security update, pending, critical, patch, management"
+  },
+  {
+    "name": "CTRL-076",
+    "description": "Microsoft Product Updates shall be enabled on Windows endpoints. Evidence may include Windows Update settings, update history, service status, or installed hotfix evidence, with indicators such as receive updates for other microsoft products, on, product, patch.",
+    "criteria": "receive updates for other microsoft products, on, product, patch, management"
+  },
+  {
+    "name": "CTRL-077",
+    "description": "Microsoft Defender antivirus definitions shall be up to date on Windows endpoints. Evidence may include Windows Update settings, update history, service status, or installed hotfix evidence, with indicators such as security intelligence, up to date, antivirussignatureversion, defender.",
+    "criteria": "security intelligence, up to date, antivirussignatureversion, defender, antivirus, definitions, patch, management"
+  },
+  {
+    "name": "CTRL-078",
+    "description": "Windows endpoint evidence shall demonstrate delivery Optimization Restricted to Local Network. Evidence may include Windows Update settings, update history, service status, or installed hotfix evidence, with indicators such as delivery optimization, devices on my local network, lan, restricted.",
+    "criteria": "delivery optimization, devices on my local network, lan, restricted, patch, management"
+  },
+  {
+    "name": "CTRL-079",
+    "description": "Security updates shall not leave a pending restart on Windows endpoints. Evidence may include Windows Update settings, update history, service status, or installed hotfix evidence, with indicators such as pending reboot, reboot required, false, restart.",
+    "criteria": "pending reboot, reboot required, false, restart, updates, patch, management"
+  },
+  {
+    "name": "CTRL-080",
+    "description": "Windows Version shall be supported on Windows endpoints. Evidence may include Windows Update settings, update history, service status, or installed hotfix evidence, with indicators such as windows specifications, version, os build, supported.",
+    "criteria": "windows specifications, version, os build, supported, patch, management"
+  },
+  {
+    "name": "CTRL-081",
+    "description": "Remote Desktop Disabled When Not shall be required on Windows endpoints. Evidence may include Remote Desktop settings, firewall rules, registry values, service status, or remote access policy output, with indicators such as remote desktop, off, fdenytsconnections, when.",
+    "criteria": "remote desktop, off, fdenytsconnections, when, access"
+  },
+  {
+    "name": "CTRL-082",
+    "description": "RDP Network Level Authentication shall be required on Windows endpoints. Evidence may include Remote Desktop settings, firewall rules, registry values, service status, or remote access policy output, with indicators such as network level authentication, require, userauthentication, rdp.",
+    "criteria": "network level authentication, require, userauthentication, rdp, remote, access"
+  },
+  {
+    "name": "CTRL-083",
+    "description": "Windows endpoint evidence shall demonstrate rDP Restricted to Authorized Users. Evidence may include Remote Desktop settings, firewall rules, registry values, service status, or remote access policy output, with indicators such as remote desktop users, members, authorized, rdp.",
+    "criteria": "remote desktop users, members, authorized, rdp, restricted, access"
+  },
+  {
+    "name": "CTRL-084",
+    "description": "Windows endpoint evidence shall demonstrate rDP Firewall Rule Disabled on Public Profile. Evidence may include Remote Desktop settings, firewall rules, registry values, service status, or remote access policy output, with indicators such as remote desktop, public, disabled, rdp.",
+    "criteria": "remote desktop, public, disabled, rdp, firewall, rule, profile, access"
+  },
+  {
+    "name": "CTRL-085",
+    "description": "Remote Assistance shall be disabled on Windows endpoints. Evidence may include Remote Desktop settings, firewall rules, registry values, service status, or remote access policy output, with indicators such as remote assistance, disabled, fallowtogethelp, access.",
+    "criteria": "remote assistance, disabled, fallowtogethelp, access"
+  },
+  {
+    "name": "CTRL-086",
+    "description": "WinRM Service shall be disabled or restricted on Windows endpoints. Evidence may include Remote Desktop settings, firewall rules, registry values, service status, or remote access policy output, with indicators such as winrm, stopped, disabled, service.",
+    "criteria": "winrm, stopped, disabled, service, restricted, remote, access"
+  },
+  {
+    "name": "CTRL-087",
+    "description": "PowerShell Remoting shall be disabled or restricted on Windows endpoints. Evidence may include Remote Desktop settings, firewall rules, registry values, service status, or remote access policy output, with indicators such as psremoting, disabled, trustedhosts, remoting.",
+    "criteria": "psremoting, disabled, trustedhosts, remoting, restricted, remote, access"
+  },
+  {
+    "name": "CTRL-088",
+    "description": "Remote Registry Service shall be disabled on Windows endpoints. Evidence may include Remote Desktop settings, firewall rules, registry values, service status, or remote access policy output, with indicators such as remoteregistry, disabled, stopped, remote.",
+    "criteria": "remoteregistry, disabled, stopped, remote, registry, service, access"
+  },
+  {
+    "name": "CTRL-089",
+    "description": "SMBv1 shall be disabled on Windows endpoints. Evidence may include Remote Desktop settings, firewall rules, registry values, service status, or remote access policy output, with indicators such as smb1protocol, false, disabled, smbv1.",
+    "criteria": "smb1protocol, false, disabled, smbv1, remote, access"
+  },
+  {
+    "name": "CTRL-090",
+    "description": "Insecure SMB Guest Logons shall be disabled on Windows endpoints. Evidence may include Remote Desktop settings, firewall rules, registry values, service status, or remote access policy output, with indicators such as enable insecure guest logons, disabled, allowinsecureguestauth, smb.",
+    "criteria": "enable insecure guest logons, disabled, allowinsecureguestauth, smb, remote, access"
+  },
+  {
+    "name": "CTRL-091",
+    "description": "USB Mass Storage shall be restricted on Windows endpoints. Evidence may include device control policy, registry values, removable storage settings, or Windows device configuration screenshots, with indicators such as usbstor, start, 4, denied.",
+    "criteria": "usbstor, start, 4, denied, usb, mass, storage, restricted, device, media"
+  },
+  {
+    "name": "CTRL-092",
+    "description": "Removable Storage Write Access shall be denied on Windows endpoints. Evidence may include device control policy, registry values, removable storage settings, or Windows device configuration screenshots, with indicators such as removable disks, deny write access, enabled, storage.",
+    "criteria": "removable disks, deny write access, enabled, storage, denied, device, media, control"
+  },
+  {
+    "name": "CTRL-093",
+    "description": "AutoRun shall be disabled on Windows endpoints. Evidence may include device control policy, registry values, removable storage settings, or Windows device configuration screenshots, with indicators such as nodrivetypeautorun, 255, autorun, device.",
+    "criteria": "nodrivetypeautorun, 255, autorun, device, media, control"
+  },
+  {
+    "name": "CTRL-094",
+    "description": "AutoPlay shall be disabled on Windows endpoints. Evidence may include device control policy, registry values, removable storage settings, or Windows device configuration screenshots, with indicators such as autoplay, off, disableautoplay, device.",
+    "criteria": "autoplay, off, disableautoplay, device, media, control"
+  },
+  {
+    "name": "CTRL-095",
+    "description": "Device Installation Restrictions shall be configured on Windows endpoints. Evidence may include device control policy, registry values, removable storage settings, or Windows device configuration screenshots, with indicators such as device installation restrictions, prevent installation, enabled, media.",
+    "criteria": "device installation restrictions, prevent installation, enabled, media, control"
+  },
+  {
+    "name": "CTRL-096",
+    "description": "Bluetooth File Transfer shall be disabled or restricted on Windows endpoints. Evidence may include device control policy, registry values, removable storage settings, or Windows device configuration screenshots, with indicators such as bluetooth, file transfer, disabled, restricted.",
+    "criteria": "bluetooth, file transfer, disabled, restricted, device, media, control"
+  },
+  {
+    "name": "CTRL-097",
+    "description": "Mobile Device Pairing shall be restricted on Windows endpoints. Evidence may include device control policy, registry values, removable storage settings, or Windows device configuration screenshots, with indicators such as device pairing, prevent, enabled, mobile.",
+    "criteria": "device pairing, prevent, enabled, mobile, restricted, media, control"
+  },
+  {
+    "name": "CTRL-098",
+    "description": "Camera Access shall be controlled on Windows endpoints. Evidence may include device control policy, registry values, removable storage settings, or Windows device configuration screenshots, with indicators such as camera access, allowed apps, restricted, controlled.",
+    "criteria": "camera access, allowed apps, restricted, controlled, device, media, control"
+  },
+  {
+    "name": "CTRL-099",
+    "description": "Print Spooler shall be disabled or restricted on Windows endpoints. Evidence may include device control policy, registry values, removable storage settings, or Windows device configuration screenshots, with indicators such as print spooler, disabled, restricted, device.",
+    "criteria": "print spooler, disabled, restricted, device, media, control"
+  },
+  {
+    "name": "CTRL-100",
+    "description": "Removable Media Encryption shall be required on Windows endpoints. Evidence may include device control policy, registry values, removable storage settings, or Windows device configuration screenshots, with indicators such as removable data drives, bitlocker, require, media.",
+    "criteria": "removable data drives, bitlocker, require, media, encryption, device, control"
+  },
+  {
+    "name": "CTRL-101",
+    "description": "Microsoft Defender SmartScreen shall be enabled on Windows endpoints. Evidence may include browser security settings, Microsoft Edge policy, registry values, SmartScreen status, or Office Trust Center evidence, with indicators such as smartscreen, on, enabled, microsoft.",
+    "criteria": "smartscreen, on, enabled, microsoft, defender, browser, application"
+  },
+  {
+    "name": "CTRL-102",
+    "description": "SmartScreen for Microsoft Edge shall be enabled on Windows endpoints. Evidence may include browser security settings, Microsoft Edge policy, registry values, SmartScreen status, or Office Trust Center evidence, with indicators such as microsoft edge, smartscreen, enabled, browser.",
+    "criteria": "microsoft edge, smartscreen, enabled, browser, application"
+  },
+  {
+    "name": "CTRL-103",
+    "description": "SmartScreen for Microsoft Store Apps shall be enabled on Windows endpoints. Evidence may include browser security settings, Microsoft Edge policy, registry values, SmartScreen status, or Office Trust Center evidence, with indicators such as smartscreen for microsoft store apps, on, browser, application.",
+    "criteria": "smartscreen for microsoft store apps, on, browser, application"
+  },
+  {
+    "name": "CTRL-104",
+    "description": "Windows endpoint evidence shall demonstrate edge Password Manager Disabled for Corporate Accounts. Evidence may include browser security settings, Microsoft Edge policy, registry values, SmartScreen status, or Office Trust Center evidence, with indicators such as password manager, disabled, passwordmanagerenabled, edge.",
+    "criteria": "password manager, disabled, passwordmanagerenabled, edge, corporate, accounts, browser, application"
+  },
+  {
+    "name": "CTRL-105",
+    "description": "Edge Extension Install Blocklist shall be configured on Windows endpoints. Evidence may include browser security settings, Microsoft Edge policy, registry values, SmartScreen status, or Office Trust Center evidence, with indicators such as extensioninstallblocklist, *, configured, edge.",
+    "criteria": "extensioninstallblocklist, *, configured, edge, extension, install, blocklist, browser, application"
+  },
+  {
+    "name": "CTRL-106",
+    "description": "Browser Download Protection shall be enabled on Windows endpoints. Evidence may include browser security settings, Microsoft Edge policy, registry values, SmartScreen status, or Office Trust Center evidence, with indicators such as download restrictions, safe browsing, enabled, browser.",
+    "criteria": "download restrictions, safe browsing, enabled, browser, protection, application"
+  },
+  {
+    "name": "CTRL-107",
+    "description": "Browser Safe Browsing shall be enabled on Windows endpoints. Evidence may include browser security settings, Microsoft Edge policy, registry values, SmartScreen status, or Office Trust Center evidence, with indicators such as safe browsing, enhanced protection, enabled, browser.",
+    "criteria": "safe browsing, enhanced protection, enabled, browser, application"
+  },
+  {
+    "name": "CTRL-108",
+    "description": "TLS 1.0 shall be disabled on Windows endpoints. Evidence may include browser security settings, Microsoft Edge policy, registry values, SmartScreen status, or Office Trust Center evidence, with indicators such as tls 1.0, disabledbydefault, browser, application.",
+    "criteria": "tls 1.0, disabledbydefault, browser, application"
+  },
+  {
+    "name": "CTRL-109",
+    "description": "TLS 1.1 shall be disabled on Windows endpoints. Evidence may include browser security settings, Microsoft Edge policy, registry values, SmartScreen status, or Office Trust Center evidence, with indicators such as tls 1.1, disabledbydefault, browser, application.",
+    "criteria": "tls 1.1, disabledbydefault, browser, application"
+  },
+  {
+    "name": "CTRL-110",
+    "description": "TLS 1.2 or a higher secure protocol shall be enabled on Windows endpoints. Evidence may include browser security settings, Microsoft Edge policy, registry values, SmartScreen status, or Office Trust Center evidence, with indicators such as tls 1.2, tls 1.3, enabled, higher.",
+    "criteria": "tls 1.2, tls 1.3, enabled, higher, browser, application"
+  },
+  {
+    "name": "CTRL-111",
+    "description": "Microsoft Office macros from Internet-sourced files shall be blocked. Evidence may include browser security settings, Microsoft Edge policy, registry values, SmartScreen status, or Office Trust Center evidence, with indicators such as block macros from running in office files from the internet, enabled, blocked, browser.",
+    "criteria": "block macros from running in office files from the internet, enabled, blocked, browser, application"
+  },
+  {
+    "name": "CTRL-112",
+    "description": "Office Protected View shall be enabled on Windows endpoints. Evidence may include browser security settings, Microsoft Edge policy, registry values, SmartScreen status, or Office Trust Center evidence, with indicators such as protected view, enabled, trust center, office.",
+    "criteria": "protected view, enabled, trust center, office, browser, application"
+  },
+  {
+    "name": "CTRL-113",
+    "description": "LSA Protection shall be enabled on Windows endpoints. Evidence may include local hardening policy, registry values, AppLocker, WDAC, or PowerShell configuration output, with indicators such as runasppl, 1, lsa protection, system.",
+    "criteria": "runasppl, 1, lsa protection, system, hardening"
+  },
+  {
+    "name": "CTRL-114",
+    "description": "Windows Script Host shall be restricted on Windows endpoints. Evidence may include local hardening policy, registry values, AppLocker, WDAC, or PowerShell configuration output, with indicators such as windows script host, enabled, 0, restricted.",
+    "criteria": "windows script host, enabled, 0, restricted, system, hardening"
+  },
+  {
+    "name": "CTRL-115",
+    "description": "Application control policy shall be present through AppLocker or Windows Defender Application Control. Evidence may include local hardening policy, registry values, AppLocker, WDAC, or PowerShell configuration output, with indicators such as applocker, wdac, enforced, present.",
+    "criteria": "applocker, wdac, enforced, present, system, hardening"
+  },
+  {
+    "name": "CTRL-116",
+    "description": "System Protection Restore Points shall be enabled on Windows endpoints. Evidence may include Windows Backup, File History, restore point status, backup event logs, or OneDrive protection evidence, with indicators such as system protection, on, restore point, points.",
+    "criteria": "system protection, on, restore point, points, backup, recovery"
+  },
+  {
+    "name": "CTRL-117",
+    "description": "Recent Restore Point shall be available on Windows endpoints. Evidence may include Windows Backup, File History, restore point status, backup event logs, or OneDrive protection evidence, with indicators such as restore point, created, system restore, recent.",
+    "criteria": "restore point, created, system restore, recent, backup, recovery"
+  },
+  {
+    "name": "CTRL-118",
+    "description": "File History Backup shall be enabled on Windows endpoints. Evidence may include Windows Backup, File History, restore point status, backup event logs, or OneDrive protection evidence, with indicators such as file history, on, backup, recovery.",
+    "criteria": "file history, on, backup, recovery"
+  },
+  {
+    "name": "CTRL-119",
+    "description": "Windows backup shall show a recent successful run. Evidence may include Windows Backup, File History, restore point status, backup event logs, or OneDrive protection evidence, with indicators such as backup, last run, successful, recovery.",
+    "criteria": "backup, last run, successful, recovery"
+  },
+  {
+    "name": "CTRL-120",
+    "description": "OneDrive known folder backup shall be enabled for protected user folders. Evidence may include Windows Backup, File History, restore point status, backup event logs, or OneDrive protection evidence, with indicators such as known folder backup, desktop, protected, onedrive.",
+    "criteria": "known folder backup, desktop, protected, onedrive, recovery"
+  },
+  {
+    "name": "CTRL-121",
+    "description": "The entity shall maintain evidence for vulnerability scan report with endpoint remediation evidence, including endpoint technical evidence and related records. Evidence should combine endpoint technical evidence together with reports, tickets, approvals, reviews, or management records, with indicators such as vulnerability scan, remediated, remediation, management.",
+    "criteria": "vulnerability scan, remediated, remediation, management"
+  },
+  {
+    "name": "CTRL-122",
+    "description": "The entity shall maintain evidence for patch status with patch management report, including endpoint technical evidence and related records. Evidence should combine endpoint technical evidence together with reports, tickets, approvals, reviews, or management records, with indicators such as windows update, patch report, approved baseline, status.",
+    "criteria": "windows update, patch report, approved baseline, status, management"
+  },
+  {
+    "name": "CTRL-123",
+    "description": "The entity shall maintain evidence for backup status with approved backup procedure, including endpoint technical evidence and related records. Evidence should combine endpoint technical evidence together with reports, tickets, approvals, reviews, or management records, with indicators such as backup successful, backup procedure, approved, status.",
+    "criteria": "backup successful, backup procedure, approved, status, recovery"
+  },
+  {
+    "name": "CTRL-124",
+    "description": "The entity shall maintain evidence for MFA enabled with access review report, including endpoint technical evidence and related records. Evidence should combine endpoint technical evidence together with reports, tickets, approvals, reviews, or management records, with indicators such as mfa, access review, enabled, identity.",
+    "criteria": "mfa, access review, enabled, identity, management"
+  },
+  {
+    "name": "CTRL-125",
+    "description": "The entity shall maintain evidence for endpoint logging enabled with incident ticket evidence, including endpoint technical evidence and related records. Evidence should combine endpoint technical evidence together with reports, tickets, approvals, reviews, or management records, with indicators such as event viewer, incident ticket, log evidence, logging.",
+    "criteria": "event viewer, incident ticket, log evidence, logging, response"
+  },
+  {
+    "name": "CTRL-126",
+    "description": "The entity shall maintain evidence for asset inventory with endpoint hostname evidence, including endpoint technical evidence and related records. Evidence should combine endpoint technical evidence together with reports, tickets, approvals, reviews, or management records, with indicators such as asset inventory, hostname, serial number, management.",
+    "criteria": "asset inventory, hostname, serial number, management"
+  },
+  {
+    "name": "CTRL-127",
+    "description": "The entity shall maintain evidence for EDR coverage with deployment report, including endpoint technical evidence and related records. Evidence should combine endpoint technical evidence together with reports, tickets, approvals, reviews, or management records, with indicators such as edr, deployment report, healthy, coverage.",
+    "criteria": "edr, deployment report, healthy, coverage"
+  },
+  {
+    "name": "CTRL-128",
+    "description": "The entity shall maintain evidence for defender configuration with exception approval, including endpoint technical evidence and related records. Evidence should combine endpoint technical evidence together with reports, tickets, approvals, reviews, or management records, with indicators such as defender, exclusion, approved exception.",
+    "criteria": "defender, exclusion, approved exception"
+  },
+  {
+    "name": "CTRL-129",
+    "description": "The entity shall maintain evidence for bitlocker status with recovery key escrow report, including endpoint technical evidence and related records. Evidence should combine endpoint technical evidence together with reports, tickets, approvals, reviews, or management records, with indicators such as bitlocker, recovery key, escrow, status.",
+    "criteria": "bitlocker, recovery key, escrow, status, data, protection"
+  },
+  {
+    "name": "CTRL-130",
+    "description": "The entity shall maintain evidence for firewall baseline with endpoint firewall evidence, including endpoint technical evidence and related records. Evidence should combine endpoint technical evidence together with reports, tickets, approvals, reviews, or management records, with indicators such as firewall state, baseline, approved, network.",
+    "criteria": "firewall state, baseline, approved, network, protection"
+  },
+  {
+    "name": "CTRL-131",
+    "description": "The entity shall maintain evidence for USB restriction with exception register, including endpoint technical evidence and related records. Evidence should combine endpoint technical evidence together with reports, tickets, approvals, reviews, or management records, with indicators such as usb restricted, exception register, expiry, restriction.",
+    "criteria": "usb restricted, exception register, expiry, restriction, device, media, control"
+  },
+  {
+    "name": "CTRL-132",
+    "description": "The entity shall maintain evidence for local administrator review with endpoint group export, including endpoint technical evidence and related records. Evidence should combine endpoint technical evidence together with reports, tickets, approvals, reviews, or management records, with indicators such as administrators group, access review, approved users, local.",
+    "criteria": "administrators group, access review, approved users, local, administrator, export, identity, management"
+  },
+  {
+    "name": "CTRL-133",
+    "description": "The entity shall maintain evidence for password policy with security standard mapping, including endpoint technical evidence and related records. Evidence should combine endpoint technical evidence together with reports, tickets, approvals, reviews, or management records, with indicators such as password policy, security standard, minimum length, mapping.",
+    "criteria": "password policy, security standard, minimum length, mapping, identity, access, management"
+  },
+  {
+    "name": "CTRL-134",
+    "description": "The entity shall maintain evidence for RDP configuration with remote access approval, including endpoint technical evidence and related records. Evidence should combine endpoint technical evidence together with reports, tickets, approvals, reviews, or management records, with indicators such as remote desktop, authorized users, rdp, access.",
+    "criteria": "remote desktop, authorized users, rdp, access"
+  },
+  {
+    "name": "CTRL-135",
+    "description": "The entity shall maintain evidence for secure boot and TPM with hardware inventory, including endpoint technical evidence and related records. Evidence should combine endpoint technical evidence together with reports, tickets, approvals, reviews, or management records, with indicators such as secure boot, tpm, hardware inventory, platform.",
+    "criteria": "secure boot, tpm, hardware inventory, platform"
+  },
+  {
+    "name": "CTRL-136",
+    "description": "The entity shall maintain evidence for browser security baseline with group policy evidence, including endpoint technical evidence and related records. Evidence should combine endpoint technical evidence together with reports, tickets, approvals, reviews, or management records, with indicators such as smartscreen, browser baseline, group policy, application.",
+    "criteria": "smartscreen, browser baseline, group policy, application"
+  },
+  {
+    "name": "CTRL-137",
+    "description": "The entity shall maintain evidence for powershell logging with SIEM ingestion report, including endpoint technical evidence and related records. Evidence should combine endpoint technical evidence together with reports, tickets, approvals, reviews, or management records, with indicators such as script block logging, siem, ingested, ingestion.",
+    "criteria": "script block logging, siem, ingested, ingestion, audit"
+  },
+  {
+    "name": "CTRL-138",
+    "description": "The entity shall maintain evidence for event log retention with monthly log review report, including endpoint technical evidence and related records. Evidence should combine endpoint technical evidence together with reports, tickets, approvals, reviews, or management records, with indicators such as security log, retention, monthly review, event.",
+    "criteria": "security log, retention, monthly review, event, audit, logging"
+  },
+  {
+    "name": "CTRL-139",
+    "description": "The entity shall maintain evidence for update history with remediation ticket closure, including endpoint technical evidence and related records. Evidence should combine endpoint technical evidence together with reports, tickets, approvals, reviews, or management records, with indicators such as update history, remediation ticket, closed, closure.",
+    "criteria": "update history, remediation ticket, closed, closure, patch, management"
+  },
+  {
+    "name": "CTRL-140",
+    "description": "The entity shall maintain evidence for backup success with restore test report, including endpoint technical evidence and related records. Evidence should combine endpoint technical evidence together with reports, tickets, approvals, reviews, or management records, with indicators such as backup successful, restore test, success, recovery.",
+    "criteria": "backup successful, restore test, success, recovery"
+  },
+  {
+    "name": "CTRL-141",
+    "description": "The entity shall maintain evidence for endpoint hardening checklist with technical baseline output, including endpoint technical evidence and related records. Evidence should combine endpoint technical evidence together with reports, tickets, approvals, reviews, or management records, with indicators such as hardening checklist, baseline output, compliant, technical.",
+    "criteria": "hardening checklist, baseline output, compliant, technical, system"
+  },
+  {
+    "name": "CTRL-142",
+    "description": "The entity shall maintain evidence for vulnerability remediation SLA with endpoint proof, including endpoint technical evidence and related records. Evidence should combine endpoint technical evidence together with reports, tickets, approvals, reviews, or management records, with indicators such as sla, remediation, endpoint proof, vulnerability.",
+    "criteria": "sla, remediation, endpoint proof, vulnerability, management"
+  },
+  {
+    "name": "CTRL-143",
+    "description": "The entity shall maintain evidence for configuration deviation with risk acceptance, including endpoint technical evidence and related records. Evidence should combine endpoint technical evidence together with reports, tickets, approvals, reviews, or management records, with indicators such as configuration deviation, risk acceptance, expiry, management.",
+    "criteria": "configuration deviation, risk acceptance, expiry, management"
+  },
+  {
+    "name": "CTRL-144",
+    "description": "The entity shall maintain evidence for device ownership record with signed assignment, including endpoint technical evidence and related records. Evidence should combine endpoint technical evidence together with reports, tickets, approvals, reviews, or management records, with indicators such as device owner, assignment, hostname, ownership.",
+    "criteria": "device owner, assignment, hostname, ownership, record, signed, asset, management"
+  },
+  {
+    "name": "CTRL-145",
+    "description": "The entity shall maintain evidence for antivirus alert review with incident escalation record, including endpoint technical evidence and related records. Evidence should combine endpoint technical evidence together with reports, tickets, approvals, reviews, or management records, with indicators such as antivirus alert, incident escalation, closed, record.",
+    "criteria": "antivirus alert, incident escalation, closed, record"
+  },
+  {
+    "name": "CTRL-146",
+    "description": "The entity shall maintain evidence for installed software inventory with approval record, including endpoint technical evidence and related records. Evidence should combine endpoint technical evidence together with reports, tickets, approvals, reviews, or management records, with indicators such as installed software, approved software, inventory, record.",
+    "criteria": "installed software, approved software, inventory, record, application"
+  },
+  {
+    "name": "CTRL-147",
+    "description": "The entity shall maintain evidence for unauthorized software removal with change record, including endpoint technical evidence and related records. Evidence should combine endpoint technical evidence together with reports, tickets, approvals, reviews, or management records, with indicators such as unauthorized software, removed, change record, removal.",
+    "criteria": "unauthorized software, removed, change record, removal, application"
+  },
+  {
+    "name": "CTRL-148",
+    "description": "The entity shall maintain evidence for endpoint DLP status with data classification procedure, including endpoint technical evidence and related records. Evidence should combine endpoint technical evidence together with reports, tickets, approvals, reviews, or management records, with indicators such as dlp, classification procedure, enabled, status.",
+    "criteria": "dlp, classification procedure, enabled, status, data, protection"
+  },
+  {
+    "name": "CTRL-149",
+    "description": "The entity shall maintain evidence for removable media encryption with media handling procedure, including endpoint technical evidence and related records. Evidence should combine endpoint technical evidence together with reports, tickets, approvals, reviews, or management records, with indicators such as removable media, encryption, handling procedure, data.",
+    "criteria": "removable media, encryption, handling procedure, data, protection"
+  },
+  {
+    "name": "CTRL-150",
+    "description": "The entity shall maintain evidence for privileged access MFA with admin approval evidence, including endpoint technical evidence and related records. Evidence should combine endpoint technical evidence together with reports, tickets, approvals, reviews, or management records, with indicators such as privileged access, mfa, admin, identity.",
+    "criteria": "privileged access, mfa, admin, identity, management"
+  },
+  {
+    "name": "CTRL-151",
+    "description": "The entity shall maintain evidence for windows audit policy with audit findings report, including endpoint technical evidence and related records. Evidence should combine endpoint technical evidence together with reports, tickets, approvals, reviews, or management records, with indicators such as audit policy, audit findings, enabled, logging.",
+    "criteria": "audit policy, audit findings, enabled, logging"
+  },
+  {
+    "name": "CTRL-152",
+    "description": "The entity shall maintain evidence for security exception with compensating control evidence, including endpoint technical evidence and related records. Evidence should combine endpoint technical evidence together with reports, tickets, approvals, reviews, or management records, with indicators such as security exception, compensating control, risk, management.",
+    "criteria": "security exception, compensating control, risk, management"
+  },
+  {
+    "name": "CTRL-153",
+    "description": "The entity shall maintain evidence for endpoint backup encryption with BCP procedure, including endpoint technical evidence and related records. Evidence should combine endpoint technical evidence together with reports, tickets, approvals, reviews, or management records, with indicators such as backup encryption, bcp, procedure, business.",
+    "criteria": "backup encryption, bcp, procedure, business, continuity"
+  },
+  {
+    "name": "CTRL-154",
+    "description": "The entity shall maintain evidence for endpoint compliance dashboard with management review, including endpoint technical evidence and related records. Evidence should combine endpoint technical evidence together with reports, tickets, approvals, reviews, or management records, with indicators such as compliance dashboard, management review, governance.",
+    "criteria": "compliance dashboard, management review, governance"
+  },
+  {
+    "name": "CTRL-155",
+    "description": "The entity shall maintain evidence for security awareness completion with phishing simulation results, including endpoint technical evidence and related records. Evidence should combine endpoint technical evidence together with reports, tickets, approvals, reviews, or management records, with indicators such as awareness completion, phishing simulation, results, human.",
+    "criteria": "awareness completion, phishing simulation, results, human, resources"
+  },
+  {
+    "name": "CTRL-156",
+    "description": "The entity shall maintain documented and approved evidence for cybersecurity policy approval. Evidence may include approved documents, reports, meeting minutes, signed records, review logs, or formal management evidence, with indicators such as cybersecurity policy, approved, authorized official, compliance.",
+    "criteria": "cybersecurity policy, approved, authorized official, compliance, governance"
+  },
+  {
+    "name": "CTRL-157",
+    "description": "The entity shall maintain documented and approved evidence for incident response plan approved. Evidence may include approved documents, reports, meeting minutes, signed records, review logs, or formal management evidence, with indicators such as incident response plan, approved, roles.",
+    "criteria": "incident response plan, approved, roles"
+  },
+  {
+    "name": "CTRL-158",
+    "description": "The entity shall maintain documented and approved evidence for annual cyber risk assessment report. Evidence may include approved documents, reports, meeting minutes, signed records, review logs, or formal management evidence, with indicators such as risk assessment, annual, findings, cyber.",
+    "criteria": "risk assessment, annual, findings, cyber, management"
+  },
+  {
+    "name": "CTRL-159",
+    "description": "The entity shall maintain documented and approved evidence for change management record maintained. Evidence may include approved documents, reports, meeting minutes, signed records, review logs, or formal management evidence, with indicators such as change request, implementation, management, record.",
+    "criteria": "change request, implementation, management, record, maintained"
+  },
+  {
+    "name": "CTRL-160",
+    "description": "The entity shall maintain documented and approved evidence for security awareness training evidence. Evidence may include approved documents, reports, meeting minutes, signed records, review logs, or formal management evidence, with indicators such as security awareness, training, attendance, human.",
+    "criteria": "security awareness, training, attendance, human, resources"
+  },
+  {
+    "name": "CTRL-161",
+    "description": "The entity shall maintain documented and approved evidence for user access review document. Evidence may include approved documents, reports, meeting minutes, signed records, review logs, or formal management evidence, with indicators such as access review, users, approved, user.",
+    "criteria": "access review, users, approved, user, identity, management"
+  },
+  {
+    "name": "CTRL-162",
+    "description": "The entity shall maintain documented and approved evidence for internal audit findings report. Evidence may include approved documents, reports, meeting minutes, signed records, review logs, or formal management evidence, with indicators such as audit findings, corrective action, internal, compliance.",
+    "criteria": "audit findings, corrective action, internal, compliance, governance"
+  },
+  {
+    "name": "CTRL-163",
+    "description": "The entity shall maintain documented and approved evidence for third-party cybersecurity assessment. Evidence may include approved documents, reports, meeting minutes, signed records, review logs, or formal management evidence, with indicators such as third-party assessment, vendor, management.",
+    "criteria": "third-party assessment, vendor, management"
+  },
+  {
+    "name": "CTRL-164",
+    "description": "The entity shall maintain documented and approved evidence for cybersecurity roles and responsibilities approved. Evidence may include approved documents, reports, meeting minutes, signed records, review logs, or formal management evidence, with indicators such as roles and responsibilities, raci, approved, compliance.",
+    "criteria": "roles and responsibilities, raci, approved, compliance, governance"
+  },
+  {
+    "name": "CTRL-165",
+    "description": "The entity shall maintain documented and approved evidence for data classification policy approved. Evidence may include approved documents, reports, meeting minutes, signed records, review logs, or formal management evidence, with indicators such as data classification, confidential, approved, protection.",
+    "criteria": "data classification, confidential, approved, protection"
+  },
+  {
+    "name": "CTRL-166",
+    "description": "The entity shall maintain documented and approved evidence for business continuity plan approved. Evidence may include approved documents, reports, meeting minutes, signed records, review logs, or formal management evidence, with indicators such as business continuity plan, approved, recovery.",
+    "criteria": "business continuity plan, approved, recovery"
+  },
+  {
+    "name": "CTRL-167",
+    "description": "The entity shall maintain documented and approved evidence for asset management policy approved. Evidence may include approved documents, reports, meeting minutes, signed records, review logs, or formal management evidence, with indicators such as asset management policy, inventory, approved.",
+    "criteria": "asset management policy, inventory, approved"
+  },
+  {
+    "name": "CTRL-168",
+    "description": "The entity shall maintain documented and approved evidence for vulnerability management procedure approved. Evidence may include approved documents, reports, meeting minutes, signed records, review logs, or formal management evidence, with indicators such as vulnerability management, procedure, sla, approved.",
+    "criteria": "vulnerability management, procedure, sla, approved"
+  },
+  {
+    "name": "CTRL-169",
+    "description": "The entity shall maintain documented and approved evidence for security exception register approved. Evidence may include approved documents, reports, meeting minutes, signed records, review logs, or formal management evidence, with indicators such as exception register, expiry, approved, risk.",
+    "criteria": "exception register, expiry, approved, risk, management"
+  },
+  {
+    "name": "CTRL-170",
+    "description": "The entity shall maintain documented and approved evidence for management compliance review minutes. Evidence may include approved documents, reports, meeting minutes, signed records, review logs, or formal management evidence, with indicators such as management review, minutes, compliance, governance.",
+    "criteria": "management review, minutes, compliance, governance"
+  }
+]

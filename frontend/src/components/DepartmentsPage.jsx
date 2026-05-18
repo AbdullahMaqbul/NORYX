@@ -101,7 +101,6 @@ export default function DepartmentsPage({ departments, controls, onRefresh }) {
             departments.map((d) => {
               const dc = deptControls(d.id);
               const isOpen = expanded === d.id;
-              const pct  = dc.length > 0 ? Math.round((dc.length / controls.length) * 100) : 0;
               return (
                 <div key={d.id} className="card card-sm">
                   <div style={{ display: 'flex', alignItems: 'center', gap: '10px' }}>

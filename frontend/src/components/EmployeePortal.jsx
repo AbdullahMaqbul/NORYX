@@ -29,29 +29,78 @@ function UploadIcon() {
   );
 }
 
-function ResultBanner({ result }) {
-  if (!result) return null;
-  const s = result.status?.toLowerCase();
-  const map = {
-    pass:        { cls: 'pass',        label: 'Compliant',      sub: 'Evidence accepted by AI validation' },
-    fail:        { cls: 'fail',        label: 'Non-Compliant',  sub: 'Evidence does not meet control requirements' },
-    need_review: { cls: 'need_review', label: 'Needs Review',   sub: 'Manual review recommended' },
-  };
-  const info = map[s] || { cls: '', label: s, sub: '' };
+function statusMeta(s) {
+  const key = (s || '').toLowerCase();
+  if (key === 'pass')        return { cls: 'badge-pass',   label: 'Compliant',      color: 'var(--green)' };
+  if (key === 'fail')        return { cls: 'badge-fail',   label: 'Non-Compliant',  color: 'var(--red)'   };
+  if (key === 'need_review') return { cls: 'badge-review', label: 'Needs Review',   color: 'var(--yellow)' };
+  return { cls: '', label: s, color: 'var(--text-secondary)' };
+}
+
+function MultiResultPanel({ results, controlName }) {
+  if (!results || results.length === 0) return null;
+
+  const passed  = results.filter(r => r.status?.toLowerCase() === 'pass').length;
+  const failed  = results.filter(r => r.status?.toLowerCase() === 'fail').length;
+  const review  = results.filter(r => r.status?.toLowerCase() === 'need_review').length;
+  const allPass = passed === results.length;
+  const anyFail = failed > 0;
+
+  const summaryColor = allPass ? 'var(--green)' : anyFail ? 'var(--red)' : 'var(--yellow)';
+  const summaryLabel = allPass ? 'All Evidence Passed' : anyFail ? `${failed} Evidence Failed` : 'Review Required';
+
   return (
-    <div className={`result-banner ${info.cls}`}>
-      <div className="result-icon-box">
-        {s === 'pass'   && <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="var(--green)"  strokeWidth="2.5"><polyline points="20 6 9 17 4 12"/></svg>}
-        {s === 'fail'   && <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="var(--red)"    strokeWidth="2.5"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>}
-        {s === 'need_review' && <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="var(--yellow)" strokeWidth="2.5"><path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"/><line x1="12" y1="9" x2="12" y2="13"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg>}
+    <div style={{ display: 'flex', flexDirection: 'column', gap: '10px', marginTop: '14px' }}>
+      {/* Summary header */}
+      <div style={{
+        padding: '10px 14px',
+        borderRadius: 'var(--radius-sm)',
+        border: `1px solid ${summaryColor}33`,
+        background: `${summaryColor}11`,
+        display: 'flex',
+        justifyContent: 'space-between',
+        alignItems: 'center',
+      }}>
+        <div>
+          <div style={{ fontWeight: 700, fontSize: '13px', color: summaryColor }}>{summaryLabel}</div>
+          <div style={{ fontSize: '11px', color: 'var(--text-secondary)', marginTop: '2px' }}>
+            {results.length} evidence submitted for {controlName || 'this control'}
+          </div>
+        </div>
+        <div style={{ display: 'flex', gap: '8px' }}>
+          {passed > 0  && <span className="badge badge-pass"   style={{ fontSize: '10px' }}>{passed} Pass</span>}
+          {failed > 0  && <span className="badge badge-fail"   style={{ fontSize: '10px' }}>{failed} Fail</span>}
+          {review > 0  && <span className="badge badge-review" style={{ fontSize: '10px' }}>{review} Review</span>}
+        </div>
       </div>
-      <div>
-        <div className="result-verdict">{info.label}</div>
-        <div className="result-sub">{info.sub}</div>
-        <div className="result-sub" style={{ marginTop: '4px' }}>Confidence: <strong style={{ color: 'var(--text-primary)' }}>{result.confidence}</strong></div>
-        {result.extracted_text && (
-          <div className="result-ocr">OCR extract: {result.extracted_text.slice(0, 150)}{result.extracted_text.length > 150 ? '…' : ''}</div>
-        )}
+
+      {/* Per-file rows */}
+      <div style={{ display: 'flex', flexDirection: 'column', gap: '6px' }}>
+        {results.map((r, i) => {
+          const m = statusMeta(r.status);
+          return (
+            <div key={i} style={{
+              display: 'flex',
+              alignItems: 'center',
+              gap: '10px',
+              padding: '8px 12px',
+              borderRadius: 'var(--radius-sm)',
+              background: 'var(--surface-2)',
+              border: '1px solid var(--border-light)',
+              fontSize: '12px',
+            }}>
+              <span style={{ flex: 1, color: 'var(--text-secondary)', fontFamily: 'monospace', fontSize: '11px', overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap' }}>
+                {r.fileName || `Evidence ${i + 1}`}
+              </span>
+              <span style={{ color: 'var(--text-tertiary)', fontSize: '11px' }}>
+                Confidence: <strong style={{ color: 'var(--text-primary)' }}>{r.confidence}</strong>
+              </span>
+              <span className={`badge ${m.cls}`} style={{ fontSize: '10px', minWidth: '90px', textAlign: 'center' }}>
+                {m.label}
+              </span>
+            </div>
+          );
+        })}
       </div>
     </div>
   );
@@ -63,83 +112,126 @@ export default function EmployeePortal({ departments }) {
   const [selectedEmp,     setSelectedEmp]     = useState(null);
   const [deptControls,    setDeptControls]    = useState([]);
   const [selectedControl, setSelectedControl] = useState('');
-  const [file,            setFile]            = useState(null);
+  const [files,           setFiles]           = useState([]);
   const [dragOver,        setDragOver]        = useState(false);
   const [loading,         setLoading]         = useState(false);
-  const [result,          setResult]          = useState(null);
+  const [progress,        setProgress]        = useState(null);   // { current, total }
+  const [results,         setResults]         = useState([]);
   const [history,         setHistory]         = useState([]);
   const fileRef = useRef();
+  const lockedToDepartment = departments.length === 1;
 
   useEffect(() => {
     if (!selectedDept) { setEmployees([]); setSelectedEmp(null); setDeptControls([]); setSelectedControl(''); return; }
-    fetch(`${API}/departments/${selectedDept}/employees`).then(r=>r.json()).then(d => { setEmployees(d); setSelectedEmp(null); }).catch(()=>{});
-    fetch(`${API}/departments/${selectedDept}/controls`).then(r=>r.json()).then(d => { setDeptControls(d); setSelectedControl(''); }).catch(()=>{});
+    fetch(`${API}/departments/${selectedDept}/employees`).then(r => r.json()).then(d => { setEmployees(d); setSelectedEmp(null); }).catch(() => {});
+    fetch(`${API}/departments/${selectedDept}/controls`).then(r => r.json()).then(d => { setDeptControls(d); setSelectedControl(''); }).catch(() => {});
   }, [selectedDept]);
 
-  const handleFile = (f) => {
-    if (f) {
-      setFile(f);
-      setResult(null);
-      // Auto-submit when file is selected and prerequisites are met
-      if (selectedControl && selectedEmp) {
-        autoSubmit(f);
-      }
+  useEffect(() => {
+    if (lockedToDepartment && !selectedDept) {
+      setSelectedDept(String(departments[0].id));
     }
+  }, [departments, lockedToDepartment, selectedDept]);
+
+  const pickFiles = (fileList) => {
+    const imgs = Array.from(fileList).filter(f => f.type.startsWith('image/'));
+    if (imgs.length === 0) return;
+    setFiles(imgs);
+    setResults([]);
   };
+
   const handleDrop = (e) => {
-    e.preventDefault(); setDragOver(false);
-    const f = e.dataTransfer.files[0];
-    if (f && f.type.startsWith('image/')) handleFile(f);
+    e.preventDefault();
+    setDragOver(false);
+    if (!selectedControl || loading) return;
+    const imgs = Array.from(e.dataTransfer.files).filter(f => f.type.startsWith('image/'));
+    if (imgs.length === 0) return;
+    setFiles(imgs);
+    setResults([]);
   };
 
-  const autoSubmit = async (uploadedFile) => {
-    if (!selectedControl || !uploadedFile || !selectedEmp) return;
-    setLoading(true); setResult(null);
-    const fd = new FormData();
-    fd.append('control_id',    selectedControl);
-    fd.append('department_id', selectedDept);
-    fd.append('employee_name', selectedEmp.name);
-    fd.append('file', uploadedFile);
-    try {
-      const res  = await fetch(`${API}/evidence/upload/`, { method: 'POST', body: fd });
-      const data = await res.json();
-      setResult(data);
-      const ctrl = deptControls.find(c => String(c.id) === selectedControl);
-      setHistory(prev => [{ ...data, control: ctrl?.name || selectedControl, file: uploadedFile.name, employee: selectedEmp.name, role: selectedEmp.role, ts: new Date().toLocaleTimeString() }, ...prev.slice(0, 9)]);
-      setFile(null);
-      if (fileRef.current) fileRef.current.value = '';
-    } catch {
-      setResult({ status: 'fail', confidence: 'N/A' });
-    } finally {
-      setLoading(false);
+  const submitAll = async () => {
+    if (!selectedControl || !selectedEmp || files.length === 0 || loading) return;
+    setLoading(true);
+    setResults([]);
+
+    const allResults = [];
+    for (let i = 0; i < files.length; i++) {
+      setProgress({ current: i + 1, total: files.length });
+      const f = files[i];
+      const fd = new FormData();
+      fd.append('control_id',    selectedControl);
+      fd.append('department_id', selectedDept);
+      fd.append('employee_name', selectedEmp.name);
+      fd.append('file',          f);
+      try {
+        const res  = await fetch(`${API}/evidence/upload/`, { method: 'POST', body: fd });
+        const data = await res.json();
+        allResults.push({ ...data, fileName: f.name });
+      } catch {
+        allResults.push({ status: 'fail', confidence: 'N/A', fileName: f.name });
+      }
+      setResults([...allResults]);
     }
+
+    const ctrl = deptControls.find(c => String(c.id) === selectedControl);
+    setHistory(prev => [
+      ...allResults.map(r => ({
+        ...r,
+        control:  ctrl?.name || selectedControl,
+        employee: selectedEmp.name,
+        role:     selectedEmp.role,
+        ts:       new Date().toLocaleTimeString(),
+      })),
+      ...prev,
+    ].slice(0, 20));
+
+    setFiles([]);
+    if (fileRef.current) fileRef.current.value = '';
+    setLoading(false);
+    setProgress(null);
   };
 
-  const dept = departments.find(d => String(d.id) === selectedDept);
+  const dept     = departments.find(d => String(d.id) === selectedDept);
+  const canUpload = Boolean(selectedControl && selectedEmp && !loading);
+  const ctrl      = deptControls.find(c => String(c.id) === selectedControl);
 
   return (
-    <div style={{ display: 'flex', flexDirection: 'column', gap: '18px' }}>
+    <div className="portal-stack">
 
-      {/* Step 1 — Department */}
-      <div className="card card-sm">
-        <div style={{ marginBottom: '12px' }}>
-          <div style={{ fontSize: '13px', fontWeight: 600, marginBottom: '2px' }}>Employee Evidence Portal</div>
-          <div style={{ fontSize: '12px', color: 'var(--text-tertiary)' }}>Select your department, then identify yourself to begin uploading compliance evidence.</div>
+      {/* Department */}
+      <div className="portal-intro">
+        <div>
+          <div className="eyebrow">Evidence Workspace</div>
+          <div className="portal-title">Submit control evidence</div>
+          <div className="portal-subtitle">Select a control, choose your team member, and upload one or more screenshots for strict AI validation.</div>
         </div>
-        <div className="form-group" style={{ marginBottom: 0 }}>
-          <label>Step 1 — Select Your Department</label>
-          <select value={selectedDept} onChange={e => { setSelectedDept(e.target.value); setSelectedEmp(null); setResult(null); }} style={{ maxWidth: '360px' }}>
-            <option value="">Choose department…</option>
-            {departments.map(d => <option key={d.id} value={d.id}>{d.name}</option>)}
-          </select>
+        <div className="portal-context">
+          {lockedToDepartment ? (
+            <div className="context-chip">
+              <span>Department</span>
+              <strong>{departments[0]?.name || 'Not configured'}</strong>
+            </div>
+          ) : (
+            <div className="form-group" style={{ marginBottom: 0 }}>
+              <label>Department</label>
+              <select value={selectedDept} onChange={e => { setSelectedDept(e.target.value); setSelectedEmp(null); setResults([]); }} style={{ minWidth: '260px' }}>
+                <option value="">Choose department…</option>
+                {departments.map(d => <option key={d.id} value={d.id}>{d.name}</option>)}
+              </select>
+            </div>
+          )}
         </div>
       </div>
 
-      {/* Step 2 — Employee picker */}
+      {/* Employee picker */}
       {selectedDept && (
         <div>
           <div className="sec-head">
-            <div className="sec-title">Step 2 — Identify Yourself</div>
+            <div>
+              <div className="step-kicker">Team member</div>
+              <div className="sec-title">Identify yourself</div>
+            </div>
             {dept && <span className="tag tag-accent">{dept.name}</span>}
           </div>
           <div className="g3">
@@ -149,7 +241,12 @@ export default function EmployeePortal({ departments }) {
                 <div
                   key={emp.id}
                   className={`emp-card ${isSelected ? 'selected' : ''}`}
-                  onClick={() => { setSelectedEmp(emp); setResult(null); }}
+                  onClick={() => { setSelectedEmp(emp); setResults([]); }}
+                  role="button"
+                  tabIndex={0}
+                  onKeyDown={(e) => {
+                    if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); setSelectedEmp(emp); setResults([]); }
+                  }}
                 >
                   <div className="emp-avatar"><PersonIcon /></div>
                   <div className="emp-name">{emp.name}</div>
@@ -165,14 +262,14 @@ export default function EmployeePortal({ departments }) {
         </div>
       )}
 
-      {/* Step 3 — Upload */}
+      {/* Upload panel */}
       {selectedEmp && (
-        <div className="g2" style={{ alignItems: 'start' }}>
+        <div className="evidence-layout">
 
-          {/* Form panel */}
+          {/* Left: form */}
           <div className="card">
             {/* Who */}
-            <div style={{ display: 'flex', alignItems: 'center', gap: '10px', paddingBottom: '14px', marginBottom: '14px', borderBottom: '1px solid var(--border)' }}>
+            <div className="person-strip">
               <div className="emp-avatar" style={{ width: '32px', height: '32px', marginBottom: 0 }}><PersonIcon /></div>
               <div>
                 <div style={{ fontWeight: 600, fontSize: '13px' }}>{selectedEmp.name}</div>
@@ -182,56 +279,106 @@ export default function EmployeePortal({ departments }) {
 
             <div>
               <div className="form-group">
-                <label>Step 3 — Select Control</label>
-                <select value={selectedControl} onChange={e => { setSelectedControl(e.target.value); setResult(null); }}>
+                <label>Control</label>
+                <select value={selectedControl} onChange={e => { setSelectedControl(e.target.value); setResults([]); setFiles([]); }}>
                   <option value="">Choose a control…</option>
                   {deptControls.map(c => <option key={c.id} value={c.id}>{c.name}</option>)}
                 </select>
               </div>
 
               {/* Control hint */}
-              {selectedControl && (() => {
-                const ctrl = deptControls.find(c => String(c.id) === selectedControl);
-                return ctrl?.description ? (
-                  <div style={{ background: 'var(--surface-2)', border: '1px solid var(--border-light)', borderRadius: 'var(--radius-sm)', padding: '10px 12px', marginBottom: '14px', fontSize: '12px', color: 'var(--text-secondary)', lineHeight: 1.6 }}>
-                    {ctrl.description}
-                  </div>
-                ) : null;
-              })()}
+              {ctrl?.description && (
+                <div style={{ background: 'var(--surface-2)', border: '1px solid var(--border-light)', borderRadius: 'var(--radius-sm)', padding: '10px 12px', marginBottom: '14px', fontSize: '12px', color: 'var(--text-secondary)', lineHeight: 1.6 }}>
+                  {ctrl.description}
+                </div>
+              )}
 
+              {/* Drop zone */}
               <div className="form-group">
-                <label>Step 4 — Upload Screenshot Evidence</label>
+                <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '6px' }}>
+                  <label style={{ marginBottom: 0 }}>Screenshot evidence</label>
+                  <span style={{ fontSize: '11px', color: 'var(--accent)', fontWeight: 600 }}>Multiple files supported</span>
+                </div>
                 <div
-                  className={`drop-zone ${dragOver ? 'dz-active' : ''} ${loading ? 'dz-loading' : ''}`}
-                  onClick={() => !loading && fileRef.current?.click()}
-                  onDragOver={e => { e.preventDefault(); if (!loading) setDragOver(true); }}
+                  className={`drop-zone ${dragOver ? 'dz-active' : ''} ${loading ? 'dz-loading' : ''} ${!selectedControl ? 'dz-disabled' : ''}`}
+                  onClick={() => canUpload && fileRef.current?.click()}
+                  onDragOver={e => { e.preventDefault(); if (canUpload) setDragOver(true); }}
                   onDragLeave={() => setDragOver(false)}
-                  onDrop={e => { if (!loading) handleDrop(e); else e.preventDefault(); }}
+                  onDrop={e => { if (canUpload) handleDrop(e); else e.preventDefault(); }}
                   style={loading ? { pointerEvents: 'auto', cursor: 'default' } : {}}
+                  aria-disabled={!selectedControl}
                 >
-                  <input ref={fileRef} type="file" accept="image/*" style={{ display: 'none' }} onChange={e => handleFile(e.target.files?.[0])} />
+                  <input
+                    ref={fileRef}
+                    type="file"
+                    accept="image/*"
+                    multiple
+                    style={{ display: 'none' }}
+                    onChange={e => { if (e.target.files?.length) pickFiles(e.target.files); }}
+                  />
+
                   {loading ? (
                     <>
                       <div className="dz-icon"><span className="spin" style={{ display: 'inline-block', fontSize: '22px', color: 'var(--accent)' }}>↻</span></div>
-                      <div className="dz-label" style={{ color: 'var(--accent)' }}>Validating with AI…</div>
-                      <div className="dz-sub">Please wait while we analyze your evidence</div>
+                      <div className="dz-label" style={{ color: 'var(--accent)' }}>
+                        Validating evidence {progress?.current}/{progress?.total}…
+                      </div>
+                      <div className="dz-sub">Please wait while each screenshot is analysed</div>
+                    </>
+                  ) : files.length > 0 ? (
+                    <>
+                      <div className="dz-icon">
+                        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="var(--green)" strokeWidth="2"><polyline points="20 6 9 17 4 12"/></svg>
+                      </div>
+                      <div className="dz-label" style={{ color: 'var(--text-primary)' }}>
+                        {files.length} file{files.length > 1 ? 's' : ''} selected
+                      </div>
+                      <div style={{ display: 'flex', flexDirection: 'column', gap: '3px', width: '100%', maxWidth: '320px', margin: '6px auto 0' }}>
+                        {files.map((f, i) => (
+                          <div key={i} style={{ fontSize: '11px', color: 'var(--text-secondary)', background: 'var(--surface-2)', borderRadius: 'var(--radius-xs)', padding: '3px 8px', overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap' }}>
+                            {f.name}
+                          </div>
+                        ))}
+                      </div>
+                      <div className="dz-sub" style={{ marginTop: '6px' }}>Click to change selection</div>
                     </>
                   ) : (
                     <>
                       <div className="dz-icon"><UploadIcon /></div>
-                      <div className="dz-label">Drop file here or <span>click to browse</span></div>
-                      <div className="dz-sub">PNG, JPG supported · auto-validated on upload</div>
+                      <div className="dz-label">
+                        {selectedControl
+                          ? <>Drop files here or <span>click to browse</span></>
+                          : 'Select a control to enable upload'}
+                      </div>
+                      <div className="dz-sub">
+                        {selectedControl
+                          ? 'PNG/JPG screenshots — select as many as needed for strict evidence'
+                          : 'The selected control keeps each submission properly mapped'}
+                      </div>
                     </>
                   )}
                 </div>
               </div>
+
+              {/* Submit button */}
+              {files.length > 0 && !loading && (
+                <button
+                  className="btn btn-primary btn-full"
+                  style={{ marginTop: '4px' }}
+                  onClick={submitAll}
+                  disabled={!canUpload}
+                >
+                  Submit {files.length} Evidence File{files.length > 1 ? 's' : ''}
+                </button>
+              )}
             </div>
 
-            <ResultBanner result={result} />
+            {/* Multi-result panel */}
+            <MultiResultPanel results={results} controlName={ctrl?.name} />
           </div>
 
           {/* Right panel */}
-          <div style={{ display: 'flex', flexDirection: 'column', gap: '14px' }}>
+          <div className="side-stack">
 
             {/* Controls checklist */}
             <div className="card">
@@ -239,21 +386,23 @@ export default function EmployeePortal({ departments }) {
                 <div className="sec-title">{dept?.name} Controls</div>
                 <span className="tag">{deptControls.length}</span>
               </div>
-              <div style={{ display: 'flex', flexDirection: 'column', gap: '2px', maxHeight: '300px', overflowY: 'auto' }}>
+              <div className="control-list">
                 {deptControls.map(c => {
                   const active = String(c.id) === selectedControl;
                   return (
                     <div
                       key={c.id}
-                      onClick={() => setSelectedControl(String(c.id))}
-                      style={{
-                        display: 'flex', alignItems: 'center', gap: '8px',
-                        padding: '7px 10px', borderRadius: 'var(--radius-sm)',
-                        cursor: 'pointer', fontSize: '12.5px', transition: 'all 0.12s',
-                        background: active ? 'var(--accent-dim)'  : 'transparent',
-                        color:      active ? 'var(--accent)'      : 'var(--text-secondary)',
-                        fontWeight: active ? 600 : 400,
-                        borderLeft: active ? '2px solid var(--accent)' : '2px solid transparent',
+                      onClick={() => { setSelectedControl(String(c.id)); setResults([]); setFiles([]); }}
+                      className={`control-item ${active ? 'active' : ''}`}
+                      role="button"
+                      tabIndex={0}
+                      onKeyDown={(e) => {
+                        if (e.key === 'Enter' || e.key === ' ') {
+                          e.preventDefault();
+                          setSelectedControl(String(c.id));
+                          setResults([]);
+                          setFiles([]);
+                        }
                       }}
                     >
                       <span>{c.name}</span>
@@ -267,18 +416,18 @@ export default function EmployeePortal({ departments }) {
             {history.length > 0 && (
               <div className="card">
                 <div className="sec-title" style={{ marginBottom: '12px' }}>Recent Submissions</div>
-                <div style={{ display: 'flex', flexDirection: 'column', gap: '6px' }}>
+                <div className="submission-list">
                   {history.map((r, i) => {
-                    const s = r.status?.toLowerCase();
-                    const color = s === 'pass' ? 'var(--green)' : s === 'fail' ? 'var(--red)' : 'var(--yellow)';
-                    const label = s === 'pass' ? 'Compliant' : s === 'fail' ? 'Non-Compliant' : 'Review';
+                    const m = statusMeta(r.status);
                     return (
-                      <div key={i} style={{ display: 'flex', alignItems: 'center', gap: '10px', padding: '8px 10px', background: 'var(--surface-2)', borderRadius: 'var(--radius-sm)', fontSize: '12px' }}>
-                        <div style={{ flex: 1 }}>
-                          <div style={{ fontWeight: 600, color: 'var(--text-primary)' }}>{r.control}</div>
-                          <div style={{ color: 'var(--text-tertiary)', fontSize: '11px' }}>{r.employee} · {r.ts}</div>
+                      <div key={i} className="submission-item">
+                        <div style={{ flex: 1, minWidth: 0 }}>
+                          <div style={{ fontWeight: 600, color: 'var(--text-primary)', overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap' }}>{r.control}</div>
+                          <div style={{ color: 'var(--text-tertiary)', fontSize: '11px', overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap' }}>
+                            {r.employee} · {r.fileName || ''} · {r.ts}
+                          </div>
                         </div>
-                        <span style={{ fontWeight: 700, color, fontSize: '11px' }}>{label}</span>
+                        <span style={{ fontWeight: 700, color: m.color, fontSize: '11px', flexShrink: 0 }}>{m.label}</span>
                       </div>
                     );
                   })}
